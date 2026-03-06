@@ -1026,6 +1026,7 @@ let sampleFileText = '';
 let selectedCatId = '';
 let progressInterval = null;
 let loadingInterval = null;
+let redditSkipNoticeShown = false;
 
 function loadStore() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
@@ -1497,6 +1498,17 @@ function handleFile(e) {
 // ANALYSIS ENGINE
 // ══════════════════════════════════════════════════════
 async function fetchReddit(subreddits) {
+  if (!Array.isArray(subreddits) || subreddits.length === 0) return [];
+
+  const blockedByBrowser = window.location.protocol === 'file:' || window.location.origin === 'null';
+  if (blockedByBrowser) {
+    if (!redditSkipNoticeShown) {
+      showToast('ℹ️ Reddit fetch skipped in local file mode; using web-search signals instead.');
+      redditSkipNoticeShown = true;
+    }
+    return [];
+  }
+
   const results = await Promise.all(subreddits.map(async sub => {
     try {
       const u = `https://www.reddit.com/r/${sub}.json?limit=15&sort=top`;
@@ -1658,6 +1670,48 @@ const LOADING_MSGS = [
   'Almost done...',
 ];
 
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function callGeminiWithRetry(geminiHeaders, geminiBody) {
+  const targets = [
+    { url: GEMINI_URL_PRIMARY, allowFallback: true },
+    { url: GEMINI_URL_FALLBACK, allowFallback: false },
+  ];
+
+  for (const target of targets) {
+    for (let attempt = 0; attempt < 3; attempt++) {
+      const res = await fetch(target.url, { method:'POST', headers:geminiHeaders, body:geminiBody });
+
+      if (res.ok) return res;
+
+      if (res.status === 429) {
+        const retryAfterHeader = Number(res.headers.get('retry-after'));
+        const waitMs = Number.isFinite(retryAfterHeader) && retryAfterHeader > 0
+          ? retryAfterHeader * 1000
+          : (attempt === 0 ? 1500 : 3500);
+
+        if (attempt < 2) {
+          await wait(waitMs);
+          continue;
+        }
+
+        throw new Error('Gemini rate limit reached (429). Please wait 1–2 minutes and try again.');
+      }
+
+      if ((res.status === 404 || res.status === 400) && target.allowFallback) {
+        break;
+      }
+
+      const err = await res.text();
+      throw new Error('Gemini API error: ' + err.slice(0,200));
+    }
+  }
+
+  throw new Error('Gemini model unavailable. Please try again shortly.');
+}
+
 async function startAnalysis() {
   if (!selectedCatId) {
     showError('Please select a product category.'); return;
@@ -1697,15 +1751,7 @@ async function startAnalysis() {
     });
     const geminiHeaders = { 'Content-Type':'application/json', 'x-goog-api-key': apiKey };
 
-    let res = await fetch(GEMINI_URL_PRIMARY, { method:'POST', headers:geminiHeaders, body:geminiBody });
-    if (!res.ok && (res.status === 404 || res.status === 400)) {
-      // Primary model unavailable — try fallback
-      res = await fetch(GEMINI_URL_FALLBACK, { method:'POST', headers:geminiHeaders, body:geminiBody });
-    }
-    if (!res.ok) {
-      const err = await res.text();
-      throw new Error('Gemini API error: ' + err.slice(0,200));
-    }
+    const res = await callGeminiWithRetry(geminiHeaders, geminiBody);
 
     const data = await res.json();
     const finishReason = data?.candidates?.[0]?.finishReason;
