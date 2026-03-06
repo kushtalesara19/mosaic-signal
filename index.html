@@ -1,1334 +1,2647 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Mosaic Signal — NPD Intelligence</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-<style>
-/* ══════════════════════════════════════════════════════
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mosaic Signal — NPD Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ══════════════════════════════════════════════════════
    RESET & TOKENS
 ══════════════════════════════════════════════════════ */
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#F7F8FC;
-  --white:#FFFFFF;
-  --card:#F8FAFC;
-  --ink:#0F172A;
-  --body:#475569;
-  --muted:#94A3B8;
-  --border:#E2E8F0;
-  --border2:#CBD5E1;
-  --surface:#F1F5F9;
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --bg: #f7f8fc;
+        --white: #ffffff;
+        --card: #f8fafc;
+        --ink: #0f172a;
+        --body: #475569;
+        --muted: #94a3b8;
+        --border: #e2e8f0;
+        --border2: #cbd5e1;
+        --surface: #f1f5f9;
 
-  --violet:#7C3AED;
-  --violet-dark:#6D28D9;
-  --violet-light:#EDE9FE;
-  --violet-mid:#8B5CF6;
-  --violet-xlight:#F5F3FF;
-  --teal:#0EA5A4;
-  --teal-light:#CCFBF1;
+        --violet: #7c3aed;
+        --violet-dark: #6d28d9;
+        --violet-light: #ede9fe;
+        --violet-mid: #8b5cf6;
+        --violet-xlight: #f5f3ff;
+        --teal: #0ea5a4;
+        --teal-light: #ccfbf1;
 
-  --green:#22C55E;
-  --green-light:#DCFCE7;
-  --amber:#F59E0B;
-  --amber-light:#FEF3C7;
-  --red:#EF4444;
-  --red-light:#FEE2E2;
+        --green: #22c55e;
+        --green-light: #dcfce7;
+        --amber: #f59e0b;
+        --amber-light: #fef3c7;
+        --red: #ef4444;
+        --red-light: #fee2e2;
 
-  --mm:#15803D;--bb:#9D174D;--lj:#1D4ED8;
+        --mm: #15803d;
+        --bb: #9d174d;
+        --lj: #1d4ed8;
 
-  --r:10px;--r-sm:8px;--r-lg:16px;--r-xl:20px;--r-full:999px;
+        --r: 10px;
+        --r-sm: 8px;
+        --r-lg: 16px;
+        --r-xl: 20px;
+        --r-full: 999px;
 
-  --shadow-sm:0 1px 3px rgba(15,23,42,.06),0 1px 2px rgba(15,23,42,.04);
-  --shadow:0 4px 12px rgba(15,23,42,.07),0 1px 3px rgba(15,23,42,.05);
-  --shadow-lg:0 12px 32px rgba(15,23,42,.10),0 4px 8px rgba(15,23,42,.06);
-  --shadow-violet:0 4px 14px rgba(124,58,237,.28);
-  --shadow-card:0 2px 8px rgba(15,23,42,.06),0 1px 2px rgba(15,23,42,.04);
-}
+        --shadow-sm:
+          0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+        --shadow:
+          0 4px 12px rgba(15, 23, 42, 0.07), 0 1px 3px rgba(15, 23, 42, 0.05);
+        --shadow-lg:
+          0 12px 32px rgba(15, 23, 42, 0.1), 0 4px 8px rgba(15, 23, 42, 0.06);
+        --shadow-violet: 0 4px 14px rgba(124, 58, 237, 0.28);
+        --shadow-card:
+          0 2px 8px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    BASE
 ══════════════════════════════════════════════════════ */
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh}
-h1,h2,h3,h4{font-family:'Cormorant Garamond',Georgia,serif}
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+        -webkit-font-smoothing: antialiased;
+        min-height: 100vh;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Cormorant Garamond", Georgia, serif;
+      }
 
-::-webkit-scrollbar{width:5px;height:5px}
-::-webkit-scrollbar-track{background:var(--surface)}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:var(--r-full)}
+      ::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--surface);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border2);
+        border-radius: var(--r-full);
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    ANIMATIONS
 ══════════════════════════════════════════════════════ */
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
-@keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-.fade-up{animation:fadeUp .45s cubic-bezier(.22,1,.36,1) forwards}
-.fade-in{animation:fadeIn .25s ease forwards}
-.spin{animation:spin 1s linear infinite}
-.skel{background:linear-gradient(90deg,var(--surface) 25%,var(--border) 50%,var(--surface) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:var(--r-sm)}
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes shimmer {
+        0% {
+          background-position: -200% 0;
+        }
+        100% {
+          background-position: 200% 0;
+        }
+      }
+      @keyframes gradientShift {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+      .fade-up {
+        animation: fadeUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+      .fade-in {
+        animation: fadeIn 0.25s ease forwards;
+      }
+      .spin {
+        animation: spin 1s linear infinite;
+      }
+      .skel {
+        background: linear-gradient(
+          90deg,
+          var(--surface) 25%,
+          var(--border) 50%,
+          var(--surface) 75%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 1.4s infinite;
+        border-radius: var(--r-sm);
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    LAYOUT
 ══════════════════════════════════════════════════════ */
-.page{display:none;min-height:100vh;flex-direction:column}
-.page.active{display:flex}
-.wrap{max-width:1280px;margin:0 auto;padding:0 40px;width:100%}
+      .page {
+        display: none;
+        min-height: 100vh;
+        flex-direction: column;
+      }
+      .page.active {
+        display: flex;
+      }
+      .wrap {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 40px;
+        width: 100%;
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    ENTRY GATE
 ══════════════════════════════════════════════════════ */
-body.site-locked{overflow:hidden}
-.entry-gate{
-  position:fixed;inset:0;z-index:400;
-  display:none;align-items:center;justify-content:center;
-  background:radial-gradient(circle at 20% 20%,rgba(124,58,237,.12) 0%,transparent 40%),var(--bg);
-  padding:20px;
-}
-.entry-gate.open{display:flex}
-.entry-card{
-  width:100%;max-width:520px;
-  background:var(--white);
-  border:1px solid var(--border);
-  border-radius:var(--r-xl);
-  box-shadow:var(--shadow-lg);
-  padding:30px 30px 26px;
-  animation:fadeUp .35s cubic-bezier(.22,1,.36,1);
-}
-.entry-logo{display:inline-flex;align-items:center;gap:11px;margin-bottom:20px}
-.entry-title{font-family:'Cormorant Garamond',serif;font-size:34px;line-height:1.1;color:var(--ink);margin-bottom:8px}
-.entry-sub{font-size:14px;color:var(--body);line-height:1.7;margin-bottom:18px}
-.entry-input{
-  display:block;
-  width:100%;
-  max-width:100%;
-  border:1.5px solid var(--border);
-  padding:16px 14px;
-  min-height:56px;
-  font-family:'DM Sans',sans-serif;font-size:15px;
-  color:var(--ink);background:var(--surface);
-  border-radius:var(--r-sm);
-  margin-bottom:12px;
-  transition:all .15s;
-  outline:none;
-}
-.entry-input::placeholder{color:var(--muted)}
-.entry-input:focus{
-  border-color:var(--violet);
-  background:var(--white);
-  box-shadow:0 0 0 2px rgba(124,58,237,.1);
-}
-.entry-error{display:none}
-.entry-actions{display:flex;gap:10px;align-items:center;margin-top:6px}
-.entry-note{font-size:12px;color:var(--muted);margin-top:10px;text-align:center}
+      body.site-locked {
+        overflow: hidden;
+      }
+      .entry-gate {
+        position: fixed;
+        inset: 0;
+        z-index: 400;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background:
+          radial-gradient(
+            circle at 20% 20%,
+            rgba(124, 58, 237, 0.12) 0%,
+            transparent 40%
+          ),
+          var(--bg);
+        padding: 20px;
+      }
+      .entry-gate.open {
+        display: flex;
+      }
+      .entry-card {
+        width: 100%;
+        max-width: 520px;
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--r-xl);
+        box-shadow: var(--shadow-lg);
+        padding: 30px 30px 26px;
+        animation: fadeUp 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .entry-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 11px;
+        margin-bottom: 20px;
+      }
+      .entry-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 34px;
+        line-height: 1.1;
+        color: var(--ink);
+        margin-bottom: 8px;
+      }
+      .entry-sub {
+        font-size: 14px;
+        color: var(--body);
+        line-height: 1.7;
+        margin-bottom: 18px;
+      }
+      .entry-input {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        border: 1.5px solid var(--border);
+        padding: 16px 14px;
+        min-height: 56px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 15px;
+        color: var(--ink);
+        background: var(--surface);
+        border-radius: var(--r-sm);
+        margin-bottom: 12px;
+        transition: all 0.15s;
+        outline: none;
+      }
+      .entry-input::placeholder {
+        color: var(--muted);
+      }
+      .entry-input:focus {
+        border-color: var(--violet);
+        background: var(--white);
+        box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.1);
+      }
+      .entry-error {
+        display: none;
+      }
+      .entry-actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-top: 6px;
+      }
+      .entry-note {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 10px;
+        text-align: center;
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    HEADER
 ══════════════════════════════════════════════════════ */
-header{
-  position:sticky;top:0;z-index:100;
-  background:rgba(255,255,255,.97);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-}
-.header-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
-.logo{display:flex;align-items:center;gap:11px;cursor:pointer;text-decoration:none}
-.logo-mark{
-  width:36px;height:36px;
-  background:linear-gradient(135deg,var(--violet) 0%,var(--violet-mid) 100%);
-  border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
-  box-shadow:var(--shadow-violet);
-}
-.logo-mark span{color:#fff;font-size:11px;font-family:'DM Mono',monospace;font-weight:700;letter-spacing:.04em}
-.logo-text{display:flex;align-items:baseline;gap:3px}
-.logo-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--ink)}
-.logo-ai{font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;color:var(--violet)}
-.logo-brand{font-size:11.5px;color:var(--muted);margin-left:9px;font-weight:400}
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(255, 255, 255, 0.97);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+      }
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 68px;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .logo-mark {
+        width: 36px;
+        height: 36px;
+        background: linear-gradient(
+          135deg,
+          var(--violet) 0%,
+          var(--violet-mid) 100%
+        );
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        box-shadow: var(--shadow-violet);
+      }
+      .logo-mark span {
+        color: #fff;
+        font-size: 11px;
+        font-family: "DM Mono", monospace;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+      }
+      .logo-text {
+        display: flex;
+        align-items: baseline;
+        gap: 3px;
+      }
+      .logo-name {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--ink);
+      }
+      .logo-ai {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 22px;
+        font-style: italic;
+        color: var(--violet);
+      }
+      .logo-brand {
+        font-size: 11.5px;
+        color: var(--muted);
+        margin-left: 9px;
+        font-weight: 400;
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    BUTTONS
 ══════════════════════════════════════════════════════ */
-.btn-primary{
-  display:inline-flex;align-items:center;gap:7px;
-  background:linear-gradient(135deg,var(--violet) 0%,var(--violet-mid) 100%);
-  color:#fff;border:none;
-  padding:10px 22px;
-  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
-  cursor:pointer;transition:all .18s;
-  border-radius:var(--r-sm);
-  box-shadow:var(--shadow-violet);
-  letter-spacing:.01em;
-}
-.btn-primary:hover{background:linear-gradient(135deg,var(--violet-dark) 0%,var(--violet) 100%);box-shadow:0 6px 20px rgba(124,58,237,.4);transform:translateY(-1px)}
-.btn-primary:active{transform:translateY(0)}
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: linear-gradient(
+          135deg,
+          var(--violet) 0%,
+          var(--violet-mid) 100%
+        );
+        color: #fff;
+        border: none;
+        padding: 10px 22px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.18s;
+        border-radius: var(--r-sm);
+        box-shadow: var(--shadow-violet);
+        letter-spacing: 0.01em;
+      }
+      .btn-primary:hover {
+        background: linear-gradient(
+          135deg,
+          var(--violet-dark) 0%,
+          var(--violet) 100%
+        );
+        box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+        transform: translateY(-1px);
+      }
+      .btn-primary:active {
+        transform: translateY(0);
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    HERO
 ══════════════════════════════════════════════════════ */
-.hero{padding:72px 0 56px;position:relative}
-.hero::before{
-  content:'';
-  position:absolute;top:-40px;left:-80px;
-  width:500px;height:500px;
-  background:radial-gradient(circle,rgba(124,58,237,.06) 0%,transparent 70%);
-  pointer-events:none;
-}
-.hero-tag{
-  display:inline-flex;align-items:center;gap:7px;
-  background:var(--violet-xlight);color:var(--violet);
-  font-size:11px;font-weight:700;
-  padding:5px 14px;border-radius:var(--r-full);
-  letter-spacing:.12em;text-transform:uppercase;margin-bottom:26px;
-  border:1px solid rgba(124,58,237,.18);
-}
-.hero-tag::before{content:'✦';font-size:8px}
-.hero h1{font-size:clamp(38px,5vw,64px);font-weight:700;line-height:1.06;color:var(--ink);margin-bottom:20px;max-width:700px}
-.hero h1 em{font-style:italic;color:var(--violet)}
-.hero p{font-size:16px;color:var(--body);max-width:480px;line-height:1.8}
-.divider{border:none;border-top:1px solid var(--border);margin:0}
+      .hero {
+        padding: 72px 0 56px;
+        position: relative;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: -40px;
+        left: -80px;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(
+          circle,
+          rgba(124, 58, 237, 0.06) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .hero-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: var(--violet-xlight);
+        color: var(--violet);
+        font-size: 11px;
+        font-weight: 700;
+        padding: 5px 14px;
+        border-radius: var(--r-full);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 26px;
+        border: 1px solid rgba(124, 58, 237, 0.18);
+      }
+      .hero-tag::before {
+        content: "✦";
+        font-size: 8px;
+      }
+      .hero h1 {
+        font-size: clamp(38px, 5vw, 64px);
+        font-weight: 700;
+        line-height: 1.06;
+        color: var(--ink);
+        margin-bottom: 20px;
+        max-width: 700px;
+      }
+      .hero h1 em {
+        font-style: italic;
+        color: var(--violet);
+      }
+      .hero p {
+        font-size: 16px;
+        color: var(--body);
+        max-width: 480px;
+        line-height: 1.8;
+      }
+      .divider {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 0;
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    SECTION HEADER
 ══════════════════════════════════════════════════════ */
-.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-top:48px}
-.section-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--ink)}
-.section-sub{font-size:13px;color:var(--muted)}
+      .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+        padding-top: 48px;
+      }
+      .section-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--ink);
+      }
+      .section-sub {
+        font-size: 13px;
+        color: var(--muted);
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    CATEGORY TILES
 ══════════════════════════════════════════════════════ */
-.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:48px}
-.cat-tile{
-  background:var(--white);
-  border:1px solid var(--border);
-  padding:28px 22px 24px;
-  cursor:pointer;
-  transition:all .22s cubic-bezier(.22,1,.36,1);
-  text-align:left;position:relative;overflow:hidden;
-  border-radius:var(--r-xl);
-  box-shadow:var(--shadow-card);
-}
-.cat-tile::before{
-  content:'';
-  position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(124,58,237,.03) 0%,transparent 60%);
-  opacity:0;transition:opacity .22s;
-}
-.cat-tile:hover{border-color:rgba(124,58,237,.35);box-shadow:var(--shadow);transform:translateY(-3px)}
-.cat-tile:hover::before{opacity:1}
-.cat-tile-icon{font-size:28px;margin-bottom:14px;display:block;line-height:1}
-.cat-tile-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--ink);margin-bottom:6px;line-height:1.2}
-.cat-tile-count{font-size:12px;color:var(--muted);font-weight:500}
-.cat-tile-count.has-data{color:var(--green);font-weight:600}
-.cat-tile-arrow{position:absolute;top:22px;right:20px;color:var(--border);font-size:16px;transition:all .22s}
-.cat-tile:hover .cat-tile-arrow{color:var(--violet);transform:translateX(4px)}
+      .cat-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 48px;
+      }
+      .cat-tile {
+        background: var(--white);
+        border: 1px solid var(--border);
+        padding: 28px 22px 24px;
+        cursor: pointer;
+        transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+        text-align: left;
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--r-xl);
+        box-shadow: var(--shadow-card);
+      }
+      .cat-tile::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(124, 58, 237, 0.03) 0%,
+          transparent 60%
+        );
+        opacity: 0;
+        transition: opacity 0.22s;
+      }
+      .cat-tile:hover {
+        border-color: rgba(124, 58, 237, 0.35);
+        box-shadow: var(--shadow);
+        transform: translateY(-3px);
+      }
+      .cat-tile:hover::before {
+        opacity: 1;
+      }
+      .cat-tile-icon {
+        font-size: 28px;
+        margin-bottom: 14px;
+        display: block;
+        line-height: 1;
+      }
+      .cat-tile-name {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--ink);
+        margin-bottom: 6px;
+        line-height: 1.2;
+      }
+      .cat-tile-count {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+      .cat-tile-count.has-data {
+        color: var(--green);
+        font-weight: 600;
+      }
+      .cat-tile-arrow {
+        position: absolute;
+        top: 22px;
+        right: 20px;
+        color: var(--border);
+        font-size: 16px;
+        transition: all 0.22s;
+      }
+      .cat-tile:hover .cat-tile-arrow {
+        color: var(--violet);
+        transform: translateX(4px);
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    FOOTER
 ══════════════════════════════════════════════════════ */
-footer{border-top:1px solid var(--border);padding:22px 0;margin-top:auto;background:var(--white)}
-.footer-text{text-align:center;font-size:12px;color:var(--muted)}
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 22px 0;
+        margin-top: auto;
+        background: var(--white);
+      }
+      .footer-text {
+        text-align: center;
+        font-size: 12px;
+        color: var(--muted);
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    MODAL
 ══════════════════════════════════════════════════════ */
-.modal-overlay{
-  position:fixed;inset:0;
-  background:rgba(15,23,42,.5);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  z-index:200;display:none;
-  align-items:center;justify-content:center;padding:16px;
-}
-.modal-overlay.open{display:flex}
-.modal{
-  background:var(--white);
-  width:100%;max-width:560px;max-height:92vh;overflow-y:auto;
-  animation:fadeUp .3s cubic-bezier(.22,1,.36,1);
-  border-radius:var(--r-xl);
-  box-shadow:var(--shadow-lg);
-  border:1px solid var(--border);
-}
-.modal-header{
-  display:flex;align-items:flex-start;justify-content:space-between;
-  padding:24px 26px 20px;border-bottom:1px solid var(--border);
-}
-.modal-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--ink)}
-.modal-sub{font-size:13px;color:var(--body);margin-top:3px}
-.modal-close{
-  background:var(--surface);border:none;cursor:pointer;
-  color:var(--muted);font-size:14px;
-  width:32px;height:32px;
-  display:flex;align-items:center;justify-content:center;
-  border-radius:var(--r-sm);transition:all .15s;flex-shrink:0;
-}
-.modal-close:hover{background:var(--border);color:var(--ink)}
-.modal-body{padding:24px 26px 28px}
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.5);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        z-index: 200;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+      }
+      .modal-overlay.open {
+        display: flex;
+      }
+      .modal {
+        background: var(--white);
+        width: 100%;
+        max-width: 560px;
+        max-height: 92vh;
+        overflow-y: auto;
+        animation: fadeUp 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        border-radius: var(--r-xl);
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--border);
+      }
+      .modal-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 24px 26px 20px;
+        border-bottom: 1px solid var(--border);
+      }
+      .modal-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--ink);
+      }
+      .modal-sub {
+        font-size: 13px;
+        color: var(--body);
+        margin-top: 3px;
+      }
+      .modal-close {
+        background: var(--surface);
+        border: none;
+        cursor: pointer;
+        color: var(--muted);
+        font-size: 14px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--r-sm);
+        transition: all 0.15s;
+        flex-shrink: 0;
+      }
+      .modal-close:hover {
+        background: var(--border);
+        color: var(--ink);
+      }
+      .modal-body {
+        padding: 24px 26px 28px;
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    FORM
 ══════════════════════════════════════════════════════ */
-.field-label{
-  display:block;font-size:10.5px;font-weight:700;
-  letter-spacing:.13em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:10px;
-}
-.cat-select-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:22px}
-.cat-btn{
-  border:1.5px solid var(--border);background:var(--white);
-  padding:10px 12px;
-  font-family:'DM Sans',sans-serif;font-size:12.5px;
-  cursor:pointer;text-align:left;transition:all .15s;
-  color:var(--ink);border-radius:var(--r-sm);font-weight:500;line-height:1.35;
-}
-.cat-btn:hover{border-color:var(--violet);color:var(--violet);background:var(--violet-xlight)}
-.cat-btn.selected{border-color:var(--violet);background:var(--violet);color:#fff;box-shadow:var(--shadow-violet)}
-.source-card{border:1px solid var(--border);padding:13px 15px;margin-bottom:10px;border-radius:var(--r-sm);background:var(--card)}
-.source-head{display:flex;align-items:center;gap:9px;margin-bottom:9px}
-.source-dot{width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:7px;font-size:10px;font-weight:700;color:#fff}
-.source-name{font-size:13px;font-weight:600;color:var(--ink)}
-.source-hint{font-size:11px;color:var(--muted);margin-left:auto}
-input[type=text],input[type=url],input[type=password]{
-  width:100%;border:1.5px solid var(--border);
-  padding:9px 12px;
-  font-family:'DM Sans',sans-serif;font-size:13px;
-  color:var(--ink);background:var(--surface);
-  outline:none;transition:all .15s;border-radius:var(--r-sm);
-}
-input[type=text]:focus,input[type=url]:focus,input[type=password]:focus{
-  border-color:var(--violet);background:var(--white);
-  box-shadow:0 0 0 3px rgba(124,58,237,.1);
-}
-.upload-btn{
-  width:100%;border:1.5px dashed var(--border2);background:var(--surface);
-  padding:10px;
-  font-family:'DM Sans',sans-serif;font-size:13px;color:var(--muted);
-  cursor:pointer;transition:all .15s;
-  display:flex;align-items:center;justify-content:center;gap:7px;
-  border-radius:var(--r-sm);
-}
-.upload-btn:hover{border-color:var(--violet);color:var(--violet);background:var(--violet-xlight)}
-.upload-success{font-size:12px;color:var(--green);margin-top:6px;font-weight:500}
-.error-box{background:var(--red-light);border:1px solid #FECACA;padding:11px 14px;font-size:13px;color:#991B1B;margin-bottom:13px;border-radius:var(--r-sm)}
-.submit-btn{
-  width:100%;background:linear-gradient(135deg,var(--violet) 0%,var(--violet-mid) 100%);color:#fff;border:none;
-  padding:14px;
-  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;
-  cursor:pointer;transition:all .18s;
-  display:flex;align-items:center;justify-content:center;gap:9px;
-  margin-top:8px;border-radius:var(--r-sm);
-  box-shadow:var(--shadow-violet);
-}
-.submit-btn:hover:not(:disabled){background:linear-gradient(135deg,var(--violet-dark) 0%,var(--violet) 100%);box-shadow:0 6px 20px rgba(124,58,237,.4);transform:translateY(-1px)}
-.submit-btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
-.loading-note{text-align:center;font-size:12px;color:var(--muted);margin-top:9px}
-.spinner{width:15px;height:15px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%}
+      .field-label {
+        display: block;
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 10px;
+      }
+      .cat-select-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-bottom: 22px;
+      }
+      .cat-btn {
+        border: 1.5px solid var(--border);
+        background: var(--white);
+        padding: 10px 12px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 12.5px;
+        cursor: pointer;
+        text-align: left;
+        transition: all 0.15s;
+        color: var(--ink);
+        border-radius: var(--r-sm);
+        font-weight: 500;
+        line-height: 1.35;
+      }
+      .cat-btn:hover {
+        border-color: var(--violet);
+        color: var(--violet);
+        background: var(--violet-xlight);
+      }
+      .cat-btn.selected {
+        border-color: var(--violet);
+        background: var(--violet);
+        color: #fff;
+        box-shadow: var(--shadow-violet);
+      }
+      .source-card {
+        border: 1px solid var(--border);
+        padding: 13px 15px;
+        margin-bottom: 10px;
+        border-radius: var(--r-sm);
+        background: var(--card);
+      }
+      .source-head {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 9px;
+      }
+      .source-dot {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        border-radius: 7px;
+        font-size: 10px;
+        font-weight: 700;
+        color: #fff;
+      }
+      .source-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .source-hint {
+        font-size: 11px;
+        color: var(--muted);
+        margin-left: auto;
+      }
+      input[type="text"],
+      input[type="url"],
+      input[type="password"] {
+        width: 100%;
+        border: 1.5px solid var(--border);
+        padding: 9px 12px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 13px;
+        color: var(--ink);
+        background: var(--surface);
+        outline: none;
+        transition: all 0.15s;
+        border-radius: var(--r-sm);
+      }
+      input[type="text"]:focus,
+      input[type="url"]:focus,
+      input[type="password"]:focus {
+        border-color: var(--violet);
+        background: var(--white);
+        box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+      }
+      .upload-btn {
+        width: 100%;
+        border: 1.5px dashed var(--border2);
+        background: var(--surface);
+        padding: 10px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 13px;
+        color: var(--muted);
+        cursor: pointer;
+        transition: all 0.15s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        border-radius: var(--r-sm);
+      }
+      .upload-btn:hover {
+        border-color: var(--violet);
+        color: var(--violet);
+        background: var(--violet-xlight);
+      }
+      .upload-success {
+        font-size: 12px;
+        color: var(--green);
+        margin-top: 6px;
+        font-weight: 500;
+      }
+      .error-box {
+        background: var(--red-light);
+        border: 1px solid #fecaca;
+        padding: 11px 14px;
+        font-size: 13px;
+        color: #991b1b;
+        margin-bottom: 13px;
+        border-radius: var(--r-sm);
+      }
+      .submit-btn {
+        width: 100%;
+        background: linear-gradient(
+          135deg,
+          var(--violet) 0%,
+          var(--violet-mid) 100%
+        );
+        color: #fff;
+        border: none;
+        padding: 14px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.18s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        margin-top: 8px;
+        border-radius: var(--r-sm);
+        box-shadow: var(--shadow-violet);
+      }
+      .submit-btn:hover:not(:disabled) {
+        background: linear-gradient(
+          135deg,
+          var(--violet-dark) 0%,
+          var(--violet) 100%
+        );
+        box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+        transform: translateY(-1px);
+      }
+      .submit-btn:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+        transform: none;
+      }
+      .loading-note {
+        text-align: center;
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 9px;
+      }
+      .spinner {
+        width: 15px;
+        height: 15px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top-color: #fff;
+        border-radius: 50%;
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    BACK BTN
 ══════════════════════════════════════════════════════ */
-.back-btn{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:13px;color:var(--body);
-  cursor:pointer;margin-bottom:24px;
-  border:none;background:none;
-  font-family:'DM Sans',sans-serif;
-  padding:7px 13px 7px 9px;
-  transition:all .15s;border-radius:var(--r-full);font-weight:500;
-}
-.back-btn:hover{color:var(--ink);background:var(--white);box-shadow:var(--shadow-sm)}
+      .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        color: var(--body);
+        cursor: pointer;
+        margin-bottom: 24px;
+        border: none;
+        background: none;
+        font-family: "DM Sans", sans-serif;
+        padding: 7px 13px 7px 9px;
+        transition: all 0.15s;
+        border-radius: var(--r-full);
+        font-weight: 500;
+      }
+      .back-btn:hover {
+        color: var(--ink);
+        background: var(--white);
+        box-shadow: var(--shadow-sm);
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    CATEGORY PAGE HEADER
 ══════════════════════════════════════════════════════ */
-.cat-page-header{display:flex;align-items:flex-start;margin-bottom:32px}
-.cat-page-title{display:flex;align-items:center;gap:16px}
-.cat-page-icon{font-size:40px;line-height:1}
-.cat-page-name{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--ink);line-height:1.1}
-.cat-page-count{font-size:13px;color:var(--body);margin-top:4px;font-weight:500}
+      .cat-page-header {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 32px;
+      }
+      .cat-page-title {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .cat-page-icon {
+        font-size: 40px;
+        line-height: 1;
+      }
+      .cat-page-name {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 34px;
+        font-weight: 700;
+        color: var(--ink);
+        line-height: 1.1;
+      }
+      .cat-page-count {
+        font-size: 13px;
+        color: var(--body);
+        margin-top: 4px;
+        font-weight: 500;
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    EMPTY STATE
 ══════════════════════════════════════════════════════ */
-.empty-state{text-align:center;padding:100px 20px}
-.empty-icon{font-size:52px;margin-bottom:18px;display:block}
-.empty-title{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--muted);margin-bottom:10px}
-.empty-sub{font-size:14px;color:var(--body);max-width:380px;margin:0 auto;line-height:1.75}
+      .empty-state {
+        text-align: center;
+        padding: 100px 20px;
+      }
+      .empty-icon {
+        font-size: 52px;
+        margin-bottom: 18px;
+        display: block;
+      }
+      .empty-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 28px;
+        color: var(--muted);
+        margin-bottom: 10px;
+      }
+      .empty-sub {
+        font-size: 14px;
+        color: var(--body);
+        max-width: 380px;
+        margin: 0 auto;
+        line-height: 1.75;
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    ANALYSIS GROUP & GRID — 3 COLUMNS ALWAYS EQUAL
 ══════════════════════════════════════════════════════ */
-.analysis-group{margin-bottom:48px}
-.analysis-meta{
-  display:flex;align-items:center;gap:10px;
-  margin-bottom:18px;padding-bottom:14px;
-  border-bottom:1px solid var(--border);flex-wrap:wrap;
-}
-.analysis-meta-left{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
-.analysis-meta-time{font-size:11px;color:var(--body);font-family:'DM Mono',monospace;background:var(--surface);padding:3px 9px;border-radius:var(--r-full)}
-.analysis-meta-topic{font-size:11px;color:var(--muted)}
-.analysis-meta-subs{display:flex;flex-wrap:wrap;gap:5px;flex:1}
-.sub-pill{
-  font-size:10px;padding:2px 9px;
-  background:var(--violet-xlight);color:var(--violet);
-  border-radius:var(--r-full);font-weight:600;
-  letter-spacing:.02em;white-space:nowrap;
-  border:1px solid rgba(124,58,237,.18);
-}
-.delete-analysis-btn{
-  background:none;border:1px solid transparent;cursor:pointer;
-  color:var(--muted);font-size:12px;
-  padding:5px 8px;border-radius:var(--r-sm);
-  transition:all .15s;flex-shrink:0;
-}
-.delete-analysis-btn:hover{background:var(--red-light);border-color:#FECACA;color:var(--red)}
+      .analysis-group {
+        margin-bottom: 48px;
+      }
+      .analysis-meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 18px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--border);
+        flex-wrap: wrap;
+      }
+      .analysis-meta-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+        min-width: 0;
+      }
+      .analysis-meta-time {
+        font-size: 11px;
+        color: var(--body);
+        font-family: "DM Mono", monospace;
+        background: var(--surface);
+        padding: 3px 9px;
+        border-radius: var(--r-full);
+      }
+      .analysis-meta-topic {
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .analysis-meta-subs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        flex: 1;
+      }
+      .sub-pill {
+        font-size: 10px;
+        padding: 2px 9px;
+        background: var(--violet-xlight);
+        color: var(--violet);
+        border-radius: var(--r-full);
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+        border: 1px solid rgba(124, 58, 237, 0.18);
+      }
+      .delete-analysis-btn {
+        background: none;
+        border: 1px solid transparent;
+        cursor: pointer;
+        color: var(--muted);
+        font-size: 12px;
+        padding: 5px 8px;
+        border-radius: var(--r-sm);
+        transition: all 0.15s;
+        flex-shrink: 0;
+      }
+      .delete-analysis-btn:hover {
+        background: var(--red-light);
+        border-color: #fecaca;
+        color: var(--red);
+      }
 
-/* 3-column grid with equal-height cards */
-.products-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
-  align-items:stretch;
-}
+      /* 3-column grid with equal-height cards */
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        align-items: stretch;
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    PRODUCT CARD — EQUAL HEIGHT via flex stretch
 ══════════════════════════════════════════════════════ */
-.product-card-wrap{
-  position:relative;
-  display:flex;
-  flex-direction:column;
-}
-.delete-product-btn{
-  position:absolute;top:10px;right:10px;z-index:10;
-  width:26px;height:26px;border-radius:50%;
-  background:rgba(255,255,255,.95);
-  border:1px solid var(--border);
-  color:var(--muted);font-size:11px;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;padding:0;line-height:1;
-  opacity:0;transition:all .15s;
-  box-shadow:var(--shadow-sm);
-}
-.product-card-wrap:hover .delete-product-btn{opacity:1}
-.delete-product-btn:hover{background:var(--red-light);border-color:var(--red);color:var(--red);transform:scale(1.1)}
+      .product-card-wrap {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+      .delete-product-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 10;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 11px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        padding: 0;
+        line-height: 1;
+        opacity: 0;
+        transition: all 0.15s;
+        box-shadow: var(--shadow-sm);
+      }
+      .product-card-wrap:hover .delete-product-btn {
+        opacity: 1;
+      }
+      .delete-product-btn:hover {
+        background: var(--red-light);
+        border-color: var(--red);
+        color: var(--red);
+        transform: scale(1.1);
+      }
 
-.product-card{
-  background:var(--white);
-  border:1.5px solid var(--border);
-  display:flex;flex-direction:column;
-  flex:1;
-  transition:all .22s cubic-bezier(.22,1,.36,1);
-  cursor:pointer;
-  border-radius:var(--r-xl);
-  overflow:hidden;
-  box-shadow:var(--shadow-card);
-}
-.product-card:hover{
-  border-color:rgba(124,58,237,.4);
-  box-shadow:0 8px 24px rgba(124,58,237,.12),0 2px 6px rgba(15,23,42,.06);
-  transform:translateY(-3px);
-}
-.card-brand-stripe{height:4px;width:100%;flex-shrink:0}
-.card-body{padding:20px;flex:1;display:flex;flex-direction:column}
-.card-top-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.brand-badge{
-  display:inline-flex;align-items:center;
-  font-size:10px;font-weight:700;
-  padding:3px 10px;color:#fff;
-  letter-spacing:.06em;
-  border-radius:var(--r-full);
-}
-.format-badge{
-  display:inline-flex;align-items:center;gap:4px;
-  font-size:11px;font-weight:600;
-  padding:3px 9px;
-  background:var(--surface);
-  border:1px solid var(--border);
-  color:var(--body);
-  border-radius:var(--r-full);
-}
-.card-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;line-height:1.2;margin-bottom:5px;color:var(--ink)}
-.card-tagline{font-size:12px;color:var(--body);font-style:italic;margin-bottom:12px;line-height:1.55}
-/* Fixed-height description so all cards align scores at the same level */
-.card-desc{
-  font-size:12.5px;color:var(--body);line-height:1.7;
-  margin-bottom:14px;
-  flex:1;
-  /* clamp to 3 lines so cards stay uniform */
-  display:-webkit-box;
-  -webkit-line-clamp:3;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
-}
-.card-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
-.meta-pill{
-  font-size:11px;padding:3px 10px;
-  border:1px solid var(--border);
-  color:var(--body);background:var(--surface);
-  border-radius:var(--r-full);font-weight:500;
-}
-.card-scores{margin-bottom:16px}
-.score-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
-.score-label{font-size:11px;color:var(--muted);width:86px;flex-shrink:0;font-weight:500}
-.score-track{flex:1;height:5px;background:var(--surface);border-radius:var(--r-full);overflow:hidden}
-.score-fill{height:100%;border-radius:var(--r-full);transition:width .7s cubic-bezier(.22,1,.36,1)}
-.score-val{font-size:10px;font-family:'DM Mono',monospace;color:var(--muted);width:28px;text-align:right}
-.view-brief-btn{
-  width:100%;
-  border:1.5px solid var(--violet);
-  background:var(--violet-xlight);
-  color:var(--violet);
-  padding:10px;
-  font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:600;
-  cursor:pointer;transition:all .16s;margin-top:auto;
-  border-radius:var(--r-sm);
-  letter-spacing:.01em;
-}
-.view-brief-btn:hover{background:var(--violet);color:#fff;box-shadow:var(--shadow-violet)}
+      .product-card {
+        background: var(--white);
+        border: 1.5px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+        cursor: pointer;
+        border-radius: var(--r-xl);
+        overflow: hidden;
+        box-shadow: var(--shadow-card);
+      }
+      .product-card:hover {
+        border-color: rgba(124, 58, 237, 0.4);
+        box-shadow:
+          0 8px 24px rgba(124, 58, 237, 0.12),
+          0 2px 6px rgba(15, 23, 42, 0.06);
+        transform: translateY(-3px);
+      }
+      .card-brand-stripe {
+        height: 4px;
+        width: 100%;
+        flex-shrink: 0;
+      }
+      .card-body {
+        padding: 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .card-top-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+      .brand-badge {
+        display: inline-flex;
+        align-items: center;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 3px 10px;
+        color: #fff;
+        letter-spacing: 0.06em;
+        border-radius: var(--r-full);
+      }
+      .format-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 3px 9px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        color: var(--body);
+        border-radius: var(--r-full);
+      }
+      .card-name {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 5px;
+        color: var(--ink);
+      }
+      .card-tagline {
+        font-size: 12px;
+        color: var(--body);
+        font-style: italic;
+        margin-bottom: 12px;
+        line-height: 1.55;
+      }
+      /* Fixed-height description so all cards align scores at the same level */
+      .card-desc {
+        font-size: 12.5px;
+        color: var(--body);
+        line-height: 1.7;
+        margin-bottom: 14px;
+        flex: 1;
+        /* clamp to 3 lines so cards stay uniform */
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .card-meta {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-bottom: 14px;
+      }
+      .meta-pill {
+        font-size: 11px;
+        padding: 3px 10px;
+        border: 1px solid var(--border);
+        color: var(--body);
+        background: var(--surface);
+        border-radius: var(--r-full);
+        font-weight: 500;
+      }
+      .card-scores {
+        margin-bottom: 16px;
+      }
+      .score-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 7px;
+      }
+      .score-label {
+        font-size: 11px;
+        color: var(--muted);
+        width: 86px;
+        flex-shrink: 0;
+        font-weight: 500;
+      }
+      .score-track {
+        flex: 1;
+        height: 5px;
+        background: var(--surface);
+        border-radius: var(--r-full);
+        overflow: hidden;
+      }
+      .score-fill {
+        height: 100%;
+        border-radius: var(--r-full);
+        transition: width 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .score-val {
+        font-size: 10px;
+        font-family: "DM Mono", monospace;
+        color: var(--muted);
+        width: 28px;
+        text-align: right;
+      }
+      .view-brief-btn {
+        width: 100%;
+        border: 1.5px solid var(--violet);
+        background: var(--violet-xlight);
+        color: var(--violet);
+        padding: 10px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 12.5px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.16s;
+        margin-top: auto;
+        border-radius: var(--r-sm);
+        letter-spacing: 0.01em;
+      }
+      .view-brief-btn:hover {
+        background: var(--violet);
+        color: #fff;
+        box-shadow: var(--shadow-violet);
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    BRIEF PAGE
 ══════════════════════════════════════════════════════ */
-.brief-hero{
-  background:var(--white);
-  border:1.5px solid var(--border);
-  padding:36px 40px;margin-bottom:24px;
-  border-radius:var(--r-xl);
-  box-shadow:var(--shadow-card);
-  position:relative;
-  overflow:hidden;
-}
-.brief-hero::before{
-  content:'';
-  position:absolute;top:-60px;right:-60px;
-  width:280px;height:280px;
-  background:radial-gradient(circle,rgba(124,58,237,.06) 0%,transparent 70%);
-  pointer-events:none;
-}
-.brief-hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
-.brief-badges{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.brief-name{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;line-height:1.08;margin-bottom:8px;color:var(--ink)}
-.brief-tagline{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--body);line-height:1.5}
-.opp-score{
-  flex-shrink:0;text-align:center;
-  border:1.5px solid rgba(124,58,237,.2);
-  padding:20px 26px;
-  background:linear-gradient(135deg,var(--violet-xlight) 0%,var(--violet-light) 100%);
-  border-radius:var(--r-lg);
-  min-width:100px;
-}
-.opp-score-num{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:700;color:var(--violet);line-height:1}
-.opp-score-label{font-size:11px;color:var(--body);margin-top:4px;font-weight:500;line-height:1.4}
-.brand-rationale{
-  margin-top:20px;padding-top:18px;
-  border-top:1px solid var(--border);
-  display:flex;gap:10px;font-size:13.5px;align-items:flex-start;
-}
-.brand-rationale-label{color:var(--muted);flex-shrink:0;font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding-top:2px}
-.brand-rationale-text{color:var(--body);font-style:italic;line-height:1.65}
-.brief-grid{display:grid;grid-template-columns:2fr 1fr;gap:20px;align-items:start}
+      .brief-hero {
+        background: var(--white);
+        border: 1.5px solid var(--border);
+        padding: 36px 40px;
+        margin-bottom: 24px;
+        border-radius: var(--r-xl);
+        box-shadow: var(--shadow-card);
+        position: relative;
+        overflow: hidden;
+      }
+      .brief-hero::before {
+        content: "";
+        position: absolute;
+        top: -60px;
+        right: -60px;
+        width: 280px;
+        height: 280px;
+        background: radial-gradient(
+          circle,
+          rgba(124, 58, 237, 0.06) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .brief-hero-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 24px;
+      }
+      .brief-badges {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 14px;
+      }
+      .brief-name {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 42px;
+        font-weight: 700;
+        line-height: 1.08;
+        margin-bottom: 8px;
+        color: var(--ink);
+      }
+      .brief-tagline {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 18px;
+        font-style: italic;
+        color: var(--body);
+        line-height: 1.5;
+      }
+      .opp-score {
+        flex-shrink: 0;
+        text-align: center;
+        border: 1.5px solid rgba(124, 58, 237, 0.2);
+        padding: 20px 26px;
+        background: linear-gradient(
+          135deg,
+          var(--violet-xlight) 0%,
+          var(--violet-light) 100%
+        );
+        border-radius: var(--r-lg);
+        min-width: 100px;
+      }
+      .opp-score-num {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 52px;
+        font-weight: 700;
+        color: var(--violet);
+        line-height: 1;
+      }
+      .opp-score-label {
+        font-size: 11px;
+        color: var(--body);
+        margin-top: 4px;
+        font-weight: 500;
+        line-height: 1.4;
+      }
+      .brand-rationale {
+        margin-top: 20px;
+        padding-top: 18px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        gap: 10px;
+        font-size: 13.5px;
+        align-items: flex-start;
+      }
+      .brand-rationale-label {
+        color: var(--muted);
+        flex-shrink: 0;
+        font-weight: 700;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding-top: 2px;
+      }
+      .brand-rationale-text {
+        color: var(--body);
+        font-style: italic;
+        line-height: 1.65;
+      }
+      .brief-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+        align-items: start;
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    BRIEF SECTIONS
 ══════════════════════════════════════════════════════ */
-.brief-section{
-  background:var(--white);
-  border:1.5px solid var(--border);
-  margin-bottom:16px;
-  border-radius:var(--r-lg);
-  overflow:hidden;
-  box-shadow:var(--shadow-card);
-  transition:border-color .15s;
-}
-.brief-section:hover{border-color:rgba(124,58,237,.2)}
-.brief-section-head{
-  display:flex;align-items:center;gap:9px;
-  padding:12px 18px;
-  border-bottom:1px solid var(--border);
-  background:linear-gradient(90deg,var(--card) 0%,#FBFCFD 100%);
-}
-.brief-section-icon{font-size:14px;line-height:1}
-.brief-section-title{font-size:10px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--muted)}
-.brief-section-body{padding:18px;background:var(--white)}
-.brief-text{font-size:14px;color:var(--body);line-height:1.82}
+      .brief-section {
+        background: var(--white);
+        border: 1.5px solid var(--border);
+        margin-bottom: 16px;
+        border-radius: var(--r-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-card);
+        transition: border-color 0.15s;
+      }
+      .brief-section:hover {
+        border-color: rgba(124, 58, 237, 0.2);
+      }
+      .brief-section-head {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 12px 18px;
+        border-bottom: 1px solid var(--border);
+        background: linear-gradient(90deg, var(--card) 0%, #fbfcfd 100%);
+      }
+      .brief-section-icon {
+        font-size: 14px;
+        line-height: 1;
+      }
+      .brief-section-title {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.17em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .brief-section-body {
+        padding: 18px;
+        background: var(--white);
+      }
+      .brief-text {
+        font-size: 14px;
+        color: var(--body);
+        line-height: 1.82;
+      }
 
-/* AI Insight box */
-.why-box{
-  background:linear-gradient(135deg,rgba(237,233,254,.7) 0%,rgba(245,243,255,.4) 100%);
-  border:1.5px solid rgba(124,58,237,.2);
-  padding:18px;font-size:14px;color:var(--ink);line-height:1.82;
-  border-radius:var(--r-sm);
-  position:relative;
-}
-.why-box::before{
-  content:'✦ AI Insight';
-  display:block;
-  font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--violet);margin-bottom:9px;
-}
+      /* AI Insight box */
+      .why-box {
+        background: linear-gradient(
+          135deg,
+          rgba(237, 233, 254, 0.7) 0%,
+          rgba(245, 243, 255, 0.4) 100%
+        );
+        border: 1.5px solid rgba(124, 58, 237, 0.2);
+        padding: 18px;
+        font-size: 14px;
+        color: var(--ink);
+        line-height: 1.82;
+        border-radius: var(--r-sm);
+        position: relative;
+      }
+      .why-box::before {
+        content: "✦ AI Insight";
+        display: block;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--violet);
+        margin-bottom: 9px;
+      }
 
-/* Insight cards */
-.insight-card{
-  border:1px solid var(--border);padding:13px 15px;
-  margin-bottom:9px;border-radius:var(--r-sm);
-  background:var(--card);transition:all .15s;
-}
-.insight-card:hover{border-color:rgba(14,165,164,.4);background:var(--white);box-shadow:var(--shadow-sm)}
-.insight-card:last-child{margin-bottom:0}
-.insight-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:7px}
-.insight-text{font-size:13px;color:var(--body);line-height:1.65;font-style:italic}
-.source-tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 9px;flex-shrink:0;border-radius:var(--r-full)}
-.source-link{
-  font-size:11px;color:var(--muted);text-decoration:none;
-  display:inline-flex;align-items:center;gap:3px;
-  transition:color .15s;flex-shrink:0;font-weight:500;
-}
-.source-link:hover{color:var(--teal)}
+      /* Insight cards */
+      .insight-card {
+        border: 1px solid var(--border);
+        padding: 13px 15px;
+        margin-bottom: 9px;
+        border-radius: var(--r-sm);
+        background: var(--card);
+        transition: all 0.15s;
+      }
+      .insight-card:hover {
+        border-color: rgba(14, 165, 164, 0.4);
+        background: var(--white);
+        box-shadow: var(--shadow-sm);
+      }
+      .insight-card:last-child {
+        margin-bottom: 0;
+      }
+      .insight-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 7px;
+      }
+      .insight-text {
+        font-size: 13px;
+        color: var(--body);
+        line-height: 1.65;
+        font-style: italic;
+      }
+      .source-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 3px 9px;
+        flex-shrink: 0;
+        border-radius: var(--r-full);
+      }
+      .source-link {
+        font-size: 11px;
+        color: var(--muted);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        transition: color 0.15s;
+        flex-shrink: 0;
+        font-weight: 500;
+      }
+      .source-link:hover {
+        color: var(--teal);
+      }
 
-/* Competitor cards */
-.comp-card{
-  border:1px solid var(--border);padding:14px 16px;margin-bottom:9px;
-  border-radius:var(--r-sm);background:var(--card);
-  transition:all .15s;
-}
-.comp-card:hover{background:var(--white);border-color:var(--border2);box-shadow:var(--shadow-sm)}
-.comp-card:last-child{margin-bottom:0}
-.comp-name{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:2px}
-.comp-sub{font-size:12px;color:var(--muted);margin-bottom:8px}
-.comp-why{font-size:12.5px;color:var(--body);line-height:1.6}
-.comp-why strong{color:var(--green);font-weight:600}
-.comp-link{
-  font-size:11px;color:var(--muted);text-decoration:none;
-  margin-top:7px;display:inline-flex;align-items:center;gap:3px;
-  font-weight:500;transition:color .15s;
-}
-.comp-link:hover{color:var(--teal)}
+      /* Competitor cards */
+      .comp-card {
+        border: 1px solid var(--border);
+        padding: 14px 16px;
+        margin-bottom: 9px;
+        border-radius: var(--r-sm);
+        background: var(--card);
+        transition: all 0.15s;
+      }
+      .comp-card:hover {
+        background: var(--white);
+        border-color: var(--border2);
+        box-shadow: var(--shadow-sm);
+      }
+      .comp-card:last-child {
+        margin-bottom: 0;
+      }
+      .comp-name {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--ink);
+        margin-bottom: 2px;
+      }
+      .comp-sub {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
+      .comp-why {
+        font-size: 12.5px;
+        color: var(--body);
+        line-height: 1.6;
+      }
+      .comp-why strong {
+        color: var(--green);
+        font-weight: 600;
+      }
+      .comp-link {
+        font-size: 11px;
+        color: var(--muted);
+        text-decoration: none;
+        margin-top: 7px;
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        font-weight: 500;
+        transition: color 0.15s;
+      }
+      .comp-link:hover {
+        color: var(--teal);
+      }
 
-/* Scores */
-.scores-stack{display:flex;flex-direction:column;gap:13px}
-.scores-composite{
-  display:flex;align-items:center;justify-content:space-between;
-  padding-top:14px;margin-top:6px;border-top:1px solid var(--border);
-}
-.scores-composite-label{font-size:12px;color:var(--body);font-weight:500}
-.scores-composite-val{
-  font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;
-  color:var(--violet);
-}
+      /* Scores */
+      .scores-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+      }
+      .scores-composite {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 14px;
+        margin-top: 6px;
+        border-top: 1px solid var(--border);
+      }
+      .scores-composite-label {
+        font-size: 12px;
+        color: var(--body);
+        font-weight: 500;
+      }
+      .scores-composite-val {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 34px;
+        font-weight: 700;
+        color: var(--violet);
+      }
 
-/* Ingredients */
-.ingredient-chips{display:flex;flex-wrap:wrap;gap:7px}
-.ing-chip{
-  font-size:12px;padding:5px 11px;
-  border:1px solid rgba(14,165,164,.3);
-  color:var(--teal);background:rgba(14,165,164,.06);
-  border-radius:var(--r-full);font-weight:600;line-height:1.3;
-}
+      /* Ingredients */
+      .ingredient-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+      .ing-chip {
+        font-size: 12px;
+        padding: 5px 11px;
+        border: 1px solid rgba(14, 165, 164, 0.3);
+        color: var(--teal);
+        background: rgba(14, 165, 164, 0.06);
+        border-radius: var(--r-full);
+        font-weight: 600;
+        line-height: 1.3;
+      }
 
-/* Format / Price / Consumer */
-.format-pill{
-  display:inline-block;font-size:13px;font-weight:600;
-  padding:6px 16px;
-  border:1.5px solid var(--violet);
-  color:var(--violet);background:var(--violet-xlight);
-  text-transform:capitalize;border-radius:var(--r-full);
-}
-.price-big{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--ink)}
-.consumer-text{font-size:14px;color:var(--body);line-height:1.8}
-.brand-full-badge{
-  width:100%;padding:13px;text-align:center;
-  font-size:13px;font-weight:700;color:#fff;
-  letter-spacing:.05em;margin-bottom:11px;border-radius:var(--r-sm);
-}
-.brand-sub{font-size:12px;color:var(--body);font-style:italic;line-height:1.6}
+      /* Format / Price / Consumer */
+      .format-pill {
+        display: inline-block;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 6px 16px;
+        border: 1.5px solid var(--violet);
+        color: var(--violet);
+        background: var(--violet-xlight);
+        text-transform: capitalize;
+        border-radius: var(--r-full);
+      }
+      .price-big {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--ink);
+      }
+      .consumer-text {
+        font-size: 14px;
+        color: var(--body);
+        line-height: 1.8;
+      }
+      .brand-full-badge {
+        width: 100%;
+        padding: 13px;
+        text-align: center;
+        font-size: 13px;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: 0.05em;
+        margin-bottom: 11px;
+        border-radius: var(--r-sm);
+      }
+      .brand-sub {
+        font-size: 12px;
+        color: var(--body);
+        font-style: italic;
+        line-height: 1.6;
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    TOAST
 ══════════════════════════════════════════════════════ */
-.toast{
-  position:fixed;bottom:28px;right:28px;
-  background:var(--ink);color:#fff;
-  padding:12px 22px;font-size:13px;font-weight:500;
-  z-index:300;
-  animation:fadeUp .28s cubic-bezier(.22,1,.36,1);
-  display:none;border-radius:var(--r-lg);
-  box-shadow:var(--shadow-lg);
-}
-.toast.show{display:block}
+      .toast {
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        background: var(--ink);
+        color: #fff;
+        padding: 12px 22px;
+        font-size: 13px;
+        font-weight: 500;
+        z-index: 300;
+        animation: fadeUp 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+        display: none;
+        border-radius: var(--r-lg);
+        box-shadow: var(--shadow-lg);
+      }
+      .toast.show {
+        display: block;
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    PROGRESS BAR
 ══════════════════════════════════════════════════════ */
-.progress-bar-track{height:6px;background:var(--surface);border-radius:var(--r-full);overflow:hidden;margin-bottom:10px}
-.progress-bar-fill{
-  height:100%;
-  background:linear-gradient(90deg,var(--violet),var(--violet-mid),var(--teal));
-  background-size:200% 100%;
-  animation:gradientShift 2s ease infinite;
-  border-radius:var(--r-full);
-  transition:width .9s cubic-bezier(.22,1,.36,1);width:0%;
-}
-.progress-label{font-size:12px;color:var(--body);text-align:center;font-weight:500}
+      .progress-bar-track {
+        height: 6px;
+        background: var(--surface);
+        border-radius: var(--r-full);
+        overflow: hidden;
+        margin-bottom: 10px;
+      }
+      .progress-bar-fill {
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          var(--violet),
+          var(--violet-mid),
+          var(--teal)
+        );
+        background-size: 200% 100%;
+        animation: gradientShift 2s ease infinite;
+        border-radius: var(--r-full);
+        transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        width: 0%;
+      }
+      .progress-label {
+        font-size: 12px;
+        color: var(--body);
+        text-align: center;
+        font-weight: 500;
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    EXPORT & DELETE BUTTONS
 ══════════════════════════════════════════════════════ */
-.btn-export{
-  display:inline-flex;align-items:center;gap:6px;
-  background:var(--white);color:var(--ink);
-  border:1.5px solid var(--border);
-  padding:9px 18px;
-  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
-  cursor:pointer;transition:all .18s;border-radius:var(--r-sm);
-  box-shadow:var(--shadow-sm);
-}
-.btn-export:hover{border-color:var(--violet);color:var(--violet);background:var(--violet-xlight)}
-.btn-export:disabled{opacity:.5;cursor:not-allowed}
-.btn-delete-brief{
-  display:inline-flex;align-items:center;gap:6px;
-  background:var(--white);color:var(--muted);
-  border:1.5px solid var(--border);
-  padding:9px 16px;
-  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
-  cursor:pointer;transition:all .18s;border-radius:var(--r-sm);
-}
-.btn-delete-brief:hover{border-color:var(--red);color:var(--red);background:var(--red-light)}
+      .btn-export {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--white);
+        color: var(--ink);
+        border: 1.5px solid var(--border);
+        padding: 9px 18px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.18s;
+        border-radius: var(--r-sm);
+        box-shadow: var(--shadow-sm);
+      }
+      .btn-export:hover {
+        border-color: var(--violet);
+        color: var(--violet);
+        background: var(--violet-xlight);
+      }
+      .btn-export:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .btn-delete-brief {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--white);
+        color: var(--muted);
+        border: 1.5px solid var(--border);
+        padding: 9px 16px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.18s;
+        border-radius: var(--r-sm);
+      }
+      .btn-delete-brief:hover {
+        border-color: var(--red);
+        color: var(--red);
+        background: var(--red-light);
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    PRINT / PDF
 ══════════════════════════════════════════════════════ */
-@media print{
-  header,footer,.back-btn,.btn-export,.btn-primary,.toast,.btn-delete-brief{display:none!important}
-  body{background:#fff;font-size:12px}
-  .page{display:block!important}
-  #page-home,#page-category{display:none!important}
-  #page-brief{display:block!important}
-  .brief-hero,.brief-section{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
-  .brief-grid{display:block}
-  .brief-grid>div:last-child{margin-top:16px}
-  .brief-name{font-size:28px}
-  .opp-score{display:inline-block}
-}
+      @media print {
+        header,
+        footer,
+        .back-btn,
+        .btn-export,
+        .btn-primary,
+        .toast,
+        .btn-delete-brief {
+          display: none !important;
+        }
+        body {
+          background: #fff;
+          font-size: 12px;
+        }
+        .page {
+          display: block !important;
+        }
+        #page-home,
+        #page-category {
+          display: none !important;
+        }
+        #page-brief {
+          display: block !important;
+        }
+        .brief-hero,
+        .brief-section {
+          box-shadow: none;
+          border: 1px solid #ddd;
+          break-inside: avoid;
+        }
+        .brief-grid {
+          display: block;
+        }
+        .brief-grid > div:last-child {
+          margin-top: 16px;
+        }
+        .brief-name {
+          font-size: 28px;
+        }
+        .opp-score {
+          display: inline-block;
+        }
+      }
 
-/* ══════════════════════════════════════════════════════
+      /* ══════════════════════════════════════════════════════
    RESPONSIVE BREAKPOINTS
 ══════════════════════════════════════════════════════ */
-/* Tablet: 2 columns */
-@media(max-width:1024px){
-  .wrap{padding:0 28px}
-  .products-grid{grid-template-columns:repeat(2,1fr);gap:18px}
-  .cat-grid{grid-template-columns:repeat(2,1fr)}
-  .brief-grid{grid-template-columns:1fr}
-  .brief-hero{padding:28px 28px}
-  .brief-name{font-size:34px}
-}
-/* Large phone: 2 columns for cats, 1 for cards */
-@media(max-width:720px){
-  .wrap{padding:0 20px}
-  .products-grid{grid-template-columns:1fr;gap:16px}
-  .cat-grid{grid-template-columns:1fr 1fr;gap:12px}
-  .hero{padding:48px 0 36px}
-  .hero h1{font-size:clamp(32px,7vw,44px)}
-  .brief-hero{padding:22px}
-  .brief-name{font-size:28px}
-  .opp-score{padding:14px 18px}
-  .opp-score-num{font-size:40px}
-  .cat-page-name{font-size:26px}
-  .header-inner{height:60px}
-}
-/* Small phone: single column everything */
-@media(max-width:440px){
-  .wrap{padding:0 16px}
-  .cat-grid{grid-template-columns:1fr}
-  .modal{border-radius:var(--r-lg)}
-  .modal-body{padding:18px 20px 22px}
-  .cat-select-grid{grid-template-columns:1fr}
-  .logo-brand{display:none}
-}
-</style>
-</head>
-<body>
-
-<div class="entry-gate" id="entry-gate">
-  <div class="entry-card">
-    <div class="entry-logo">
-      <div class="logo-mark"><span>MS</span></div>
-      <div class="logo-text">
-        <span class="logo-name">Mosaic</span>
-        <span class="logo-ai">Signal</span>
-      </div>
-    </div>
-    <div class="entry-title">Enter Gemini API Key</div>
-    <div class="entry-sub">Add your key once to access the workspace. It stays saved on this browser for future visits.</div>
-    <label class="field-label" for="entry-api-key">Gemini API Key</label>
-    <input class="entry-input" type="password" id="entry-api-key" placeholder="AIza..." autocomplete="off"/>
-    <div id="entry-error" class="error-box entry-error"></div>
-    <div class="entry-actions">
-      <button class="submit-btn" style="margin-top:0" onclick="submitEntryKey()">Enter Site</button>
-    </div>
-    <p class="entry-note">You can update this key anytime by clearing browser storage.</p>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════ HOME PAGE ═══════════════════════════════════════ -->
-<div id="page-home" class="page active">
-  <header>
-    <div class="wrap header-inner">
-      <div class="logo" onclick="showPage('home')">
-        <div class="logo-mark"><span>MS</span></div>
-        <div class="logo-text">
-          <span class="logo-name">Mosaic</span>
-          <span class="logo-ai">Signal</span>
-          <span class="logo-brand">| NPD Intelligence</span>
-        </div>
-      </div>
-      <button class="btn-primary" onclick="openModal()">
-        <span style="font-size:16px;line-height:1">+</span> New Analysis
-      </button>
-    </div>
-  </header>
-
-  <main class="wrap" style="flex:1">
-    <section class="hero">
-      <div><span class="hero-tag">Built for Mosaic Wellness</span></div>
-      <h1>NPD Intelligence for<br><em>Mosaic's Three Brands</em></h1>
-      <p>From Reddit threads to PM-ready briefs — in 40 seconds. Live consumer signal across Man Matters, Be Bodywise & Little Joys.</p>
-    </section>
-    <hr class="divider"/>
-    <div class="section-header">
-      <h2 class="section-title">Product Categories</h2>
-      <span class="section-sub">Click a category to view generated ideas</span>
-    </div>
-    <div class="cat-grid" id="cat-grid"></div>
-  </main>
-
-  <footer>
-    <div class="wrap">
-      <p class="footer-text">
-        Live consumer intelligence from
-        <span style="color:#F97316">Reddit</span> ·
-        <span style="color:#EAB308">Amazon</span> ·
-        <span style="color:#3B82F6">Google Trends</span> ·
-        <span style="color:#EC4899">Nykaa</span> ·
-        <span style="color:#1DA1F2">Twitter</span>
-      </p>
-    </div>
-  </footer>
-</div>
-
-<!-- ═══════════════════════════════════════ CATEGORY PAGE ═══════════════════════════════════════ -->
-<div id="page-category" class="page">
-  <header>
-    <div class="wrap header-inner">
-      <div class="logo" onclick="showPage('home')">
-        <div class="logo-mark"><span>MS</span></div>
-        <div class="logo-text">
-          <span class="logo-name">Mosaic</span>
-          <span class="logo-ai">Signal</span>
-          <span class="logo-brand">| NPD Intelligence</span>
-        </div>
-      </div>
-      <button class="btn-primary" onclick="openModal()">
-        <span style="font-size:16px;line-height:1">+</span> New Analysis
-      </button>
-    </div>
-  </header>
-  <main class="wrap" style="flex:1;padding-top:28px;padding-bottom:40px">
-    <button class="back-btn" onclick="showPage('home')">← Back to home</button>
-    <div class="cat-page-header">
-      <div class="cat-page-title">
-        <span class="cat-page-icon" id="cp-icon"></span>
-        <div>
-          <div class="cat-page-name" id="cp-name"></div>
-          <div class="cat-page-count" id="cp-count"></div>
-        </div>
-      </div>
-    </div>
-    <div id="cat-content"></div>
-  </main>
-  <footer><div class="wrap"><p class="footer-text">Live consumer intelligence from <span style="color:#F97316">Reddit</span> · <span style="color:#EAB308">Amazon</span> · <span style="color:#3B82F6">Google Trends</span> · <span style="color:#EC4899">Nykaa</span> · <span style="color:#1DA1F2">Twitter</span></p></div></footer>
-</div>
-
-<!-- ═══════════════════════════════════════ BRIEF PAGE ═══════════════════════════════════════ -->
-<div id="page-brief" class="page">
-  <header>
-    <div class="wrap header-inner">
-      <div class="logo" onclick="showPage('home')">
-        <div class="logo-mark"><span>MS</span></div>
-        <div class="logo-text">
-          <span class="logo-name">Mosaic</span>
-          <span class="logo-ai">Signal</span>
-          <span class="logo-brand">| NPD Intelligence</span>
-        </div>
-      </div>
-      <button class="btn-primary" onclick="openModal()">
-        <span style="font-size:16px;line-height:1">+</span> New Analysis
-      </button>
-    </div>
-  </header>
-  <main class="wrap" style="flex:1;padding-top:28px;padding-bottom:60px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0">
-      <button class="back-btn" id="brief-back-btn">← Back to category</button>
-      <div style="display:flex;gap:8px">
-        <button class="btn-delete-brief" id="brief-delete-btn">🗑 Delete</button>
-        <button class="btn-export" onclick="exportPDF()" id="export-btn">⬇ Export PDF</button>
-      </div>
-    </div>
-    <div id="brief-content"></div>
-  </main>
-  <footer><div class="wrap"><p class="footer-text">Live consumer intelligence from <span style="color:#F97316">Reddit</span> · <span style="color:#EAB308">Amazon</span> · <span style="color:#3B82F6">Google Trends</span> · <span style="color:#EC4899">Nykaa</span> · <span style="color:#1DA1F2">Twitter</span></p></div></footer>
-</div>
-
-<!-- ═══════════════════════════════════════ MODAL ═══════════════════════════════════════ -->
-<div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
-  <div class="modal">
-    <div class="modal-header">
-      <div>
-        <div class="modal-title">New Analysis</div>
-        <div class="modal-sub">Mine consumer data to generate product concepts</div>
-      </div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-body">
-      <!-- Category -->
-      <label class="field-label">Product Category <span style="color:red">*</span></label>
-      <div class="cat-select-grid" id="modal-cat-grid"></div>
-
-      <!-- Data Sources -->
-      <label class="field-label" style="margin-top:4px">Data Sources</label>
-
-      <div class="source-card">
-        <div class="source-head">
-          <div class="source-dot" style="background:#F97316">R</div>
-          <span class="source-name">Reddit</span>
-          <span class="source-hint">Community discussions</span>
-        </div>
-        <input type="url" id="inp-reddit" placeholder="https://www.reddit.com/r/IndianSkincareAddicts"/>
-      </div>
-
-      <div class="source-card">
-        <div class="source-head">
-          <div class="source-dot" style="background:#3B82F6">📈</div>
-          <span class="source-name">Google Trends</span>
-          <span class="source-hint">Rising searches</span>
-        </div>
-        <input type="text" id="inp-trends" placeholder="e.g. niacinamide serum India"/>
-      </div>
-
-      <div class="source-card">
-        <div class="source-head">
-          <div class="source-dot" style="background:#EAB308">🛍</div>
-          <span class="source-name">Amazon / Nykaa / Flipkart</span>
-          <span class="source-hint">Review mining</span>
-        </div>
-        <input type="text" id="inp-amazon" placeholder="e.g. face serum under 500 rupees"/>
-      </div>
-
-      <div class="source-card" style="border-style:dashed">
-        <div class="source-head">
-          <div class="source-dot" style="background:#374151">📄</div>
-          <span class="source-name">Sample Data</span>
-          <span class="source-hint">Optional CSV / TXT</span>
-        </div>
-        <input type="file" id="inp-file" accept=".csv,.txt,.json" style="display:none" onchange="handleFile(event)"/>
-        <button class="upload-btn" onclick="document.getElementById('inp-file').click()">
-          ↑ Upload review data file
-        </button>
-        <div id="file-success" class="upload-success" style="display:none"></div>
-      </div>
-
-      <div id="modal-error" class="error-box" style="display:none;margin-top:12px"></div>
-
-      <div id="progress-wrap" style="display:none;margin-top:16px">
-        <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-bar"></div></div>
-        <div class="progress-label" id="progress-label">Initialising…</div>
-      </div>
-
-      <button class="submit-btn" id="submit-btn" onclick="startAnalysis()" style="margin-top:16px">
-        Start Analysis → Generate 5 Product Concepts
-      </button>
-      <p class="loading-note" id="loading-note" style="display:none">This takes 20–40 seconds — Gemini is searching the web live</p>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-// ══════════════════════════════════════════════════════
-// CONFIG
-// ══════════════════════════════════════════════════════
-const API_KEY_STORAGE = 'gemini_api_key';
-let geminiApiKey = '';
-function GEMINI_KEY() {
-  if (geminiApiKey) return geminiApiKey;
-  const saved = localStorage.getItem(API_KEY_STORAGE) || sessionStorage.getItem(API_KEY_STORAGE) || '';
-  if (!saved) return '';
-  geminiApiKey = saved;
-  if (!localStorage.getItem(API_KEY_STORAGE)) {
-    localStorage.setItem(API_KEY_STORAGE, geminiApiKey);
-  }
-  return geminiApiKey;
-}
-const GEMINI_URL_PRIMARY  = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
-const GEMINI_URL_FALLBACK = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
-const STORAGE_KEY = 'productmind_v2';
-
-const CATEGORIES = [
-  { id:'hair-care',     label:'Hair Care',                   icon:'💆',
-    subreddits:['Hairloss','HaircareScience','tressless','IndianSkincareAddicts'],
-    trend:'hair care India', amazon:'hair serum India' },
-  { id:'skin-care',     label:'Skin Care',                   icon:'✨',
-    subreddits:['IndianSkincareAddicts','SkincareAddiction','AsianBeauty','acne','30PlusSkinCare'],
-    trend:'skincare India', amazon:'face serum India' },
-  { id:'nutrition',     label:'Nutritional Supplements',     icon:'💊',
-    subreddits:['IndiaFitness','Supplements','Biohackers','Nootropics','Nutrition'],
-    trend:'protein supplements India', amazon:'multivitamins India' },
-  { id:'sexual-health', label:'Sexual Health & Performance', icon:'⚡',
-    subreddits:['sex','sexover30','erectiledysfunction','menshealth','AskMen'],
-    trend:'mens health India', amazon:'mens wellness supplements India' },
-  { id:'personal-care', label:'Personal Care & Hygiene',     icon:'🧴',
-    subreddits:['malegrooming','SkincareAddiction','AsianBeauty','IndianSkincareAddicts','Fragrance'],
-    trend:'personal care India', amazon:'deodorant India' },
-  { id:'kids-wellness', label:'Kids Nutrition & Wellness',   icon:'🌱',
-    subreddits:['Parenting','NewParents','toddlers','Mommit','Daddit'],
-    trend:'kids nutrition India', amazon:'kids vitamins India' },
-];
-
-const BRANDS = {
-  'man-matters':  { name:'Man Matters',  color:'#1B4332', light:'#D1FAE5', tagline:'For men who take their health seriously' },
-  'be-bodywise':  { name:'Be Bodywise',  color:'#831843', light:'#FCE7F3', tagline:'Science-backed wellness for women' },
-  'little-joys':  { name:'Little Joys',  color:'#1E3A5F', light:'#DBEAFE', tagline:'Gentle nutrition for growing up' },
-};
-
-const SOURCE_STYLES = {
-  'Reddit':        { bg:'#FFF7ED', border:'#FB923C', color:'#C2410C', dot:'#F97316' },
-  'Twitter':       { bg:'#EFF6FF', border:'#60A5FA', color:'#1D4ED8', dot:'#3B82F6' },
-  'Amazon':        { bg:'#FFFBEB', border:'#FBBF24', color:'#B45309', dot:'#F59E0B' },
-  'Nykaa':         { bg:'#FDF4FF', border:'#D946EF', color:'#86198F', dot:'#A21CAF' },
-  'Flipkart':      { bg:'#EFF6FF', border:'#6366F1', color:'#3730A3', dot:'#4F46E5' },
-  'Google Trends': { bg:'#F0FDF4', border:'#4ADE80', color:'#15803D', dot:'#22C55E' },
-};
-
-const FORMAT_ICONS = { serum:'💧', tablet:'💊', gummy:'🐻', shampoo:'🧴' };
-
-// ══════════════════════════════════════════════════════
-// STATE
-// ══════════════════════════════════════════════════════
-let currentCategoryId = null;
-let sampleFileText = '';
-let selectedCatId = '';
-let progressInterval = null;
-let loadingInterval = null;
-let redditSkipNoticeShown = false;
-
-function loadStore() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
-  catch { return {}; }
-}
-function saveStore(data) {
-  try {
-    const serialized = JSON.stringify(data);
-    // Warn if approaching 4MB (localStorage cap is ~5MB)
-    if (serialized.length > 4_000_000) {
-      showToast('⚠️ Storage nearly full — consider deleting old analyses');
-    }
-    localStorage.setItem(STORAGE_KEY, serialized);
-  } catch(e) {
-    // QuotaExceededError — prune oldest entry per category and retry
-    try {
-      const store = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-      let pruned = false;
-      for (const key of Object.keys(store)) {
-        if (store[key].length > 1) { store[key].pop(); pruned = true; break; }
+      /* Tablet: 2 columns */
+      @media (max-width: 1024px) {
+        .wrap {
+          padding: 0 28px;
+        }
+        .products-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 18px;
+        }
+        .cat-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .brief-grid {
+          grid-template-columns: 1fr;
+        }
+        .brief-hero {
+          padding: 28px 28px;
+        }
+        .brief-name {
+          font-size: 34px;
+        }
       }
-      if (pruned) localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
-      showToast('⚠️ Storage full — oldest analysis removed to make space');
-    } catch(_) {}
-  }
-}
-function getEntries(catId) { return loadStore()[catId] || []; }
-function addEntry(catId, entry) {
-  const store = loadStore();
-  if (!store[catId]) store[catId] = [];
-  store[catId].unshift(entry);
-  saveStore(store);
-}
-function countProducts(catId) {
-  return getEntries(catId).reduce((s,e) => s + (e.products?.length||0), 0);
-}
+      /* Large phone: 2 columns for cats, 1 for cards */
+      @media (max-width: 720px) {
+        .wrap {
+          padding: 0 20px;
+        }
+        .products-grid {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+        .cat-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+        }
+        .hero {
+          padding: 48px 0 36px;
+        }
+        .hero h1 {
+          font-size: clamp(32px, 7vw, 44px);
+        }
+        .brief-hero {
+          padding: 22px;
+        }
+        .brief-name {
+          font-size: 28px;
+        }
+        .opp-score {
+          padding: 14px 18px;
+        }
+        .opp-score-num {
+          font-size: 40px;
+        }
+        .cat-page-name {
+          font-size: 26px;
+        }
+        .header-inner {
+          height: 60px;
+        }
+      }
+      /* Small phone: single column everything */
+      @media (max-width: 440px) {
+        .wrap {
+          padding: 0 16px;
+        }
+        .cat-grid {
+          grid-template-columns: 1fr;
+        }
+        .modal {
+          border-radius: var(--r-lg);
+        }
+        .modal-body {
+          padding: 18px 20px 22px;
+        }
+        .cat-select-grid {
+          grid-template-columns: 1fr;
+        }
+        .logo-brand {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="entry-gate" id="entry-gate">
+      <div class="entry-card">
+        <div class="entry-logo">
+          <div class="logo-mark"><span>MS</span></div>
+          <div class="logo-text">
+            <span class="logo-name">Mosaic</span>
+            <span class="logo-ai">Signal</span>
+          </div>
+        </div>
+        <div class="entry-title">Enter Gemini API Key</div>
+        <div class="entry-sub">
+          Add your key once to access the workspace. It stays saved on this
+          browser for future visits.
+        </div>
+        <label class="field-label" for="entry-api-key">Gemini API Key</label>
+        <input
+          class="entry-input"
+          type="password"
+          id="entry-api-key"
+          placeholder="AIza..."
+          autocomplete="off"
+        />
+        <div id="entry-error" class="error-box entry-error"></div>
+        <div class="entry-actions">
+          <button
+            class="submit-btn"
+            style="margin-top: 0"
+            onclick="submitEntryKey()"
+          >
+            Enter Site
+          </button>
+        </div>
+        <div class="entry-note">
+          <p>Get your API key from the task submission form notes.</p>
+          <p>You can update this key anytime by clearing browser storage.</p>
+        </div>
+      </div>
+    </div>
 
-function showEntryError(msg) {
-  const el = document.getElementById('entry-error');
-  el.textContent = msg;
-  el.style.display = 'block';
-}
+    <!-- ═══════════════════════════════════════ HOME PAGE ═══════════════════════════════════════ -->
+    <div id="page-home" class="page active">
+      <header>
+        <div class="wrap header-inner">
+          <div class="logo" onclick="showPage('home')">
+            <div class="logo-mark"><span>MS</span></div>
+            <div class="logo-text">
+              <span class="logo-name">Mosaic</span>
+              <span class="logo-ai">Signal</span>
+              <span class="logo-brand">| NPD Intelligence</span>
+            </div>
+          </div>
+          <button class="btn-primary" onclick="openModal()">
+            <span style="font-size: 16px; line-height: 1">+</span> New Analysis
+          </button>
+        </div>
+      </header>
 
-function hideEntryError() {
-  document.getElementById('entry-error').style.display = 'none';
-}
+      <main class="wrap" style="flex: 1">
+        <section class="hero">
+          <div><span class="hero-tag">Built for Mosaic Wellness</span></div>
+          <h1>NPD Intelligence for<br /><em>Mosaic's Three Brands</em></h1>
+          <p>
+            From Reddit threads to PM-ready briefs — in 40 seconds. Live
+            consumer signal across Man Matters, Be Bodywise & Little Joys.
+          </p>
+        </section>
+        <hr class="divider" />
+        <div class="section-header">
+          <h2 class="section-title">Product Categories</h2>
+          <span class="section-sub"
+            >Click a category to view generated ideas</span
+          >
+        </div>
+        <div class="cat-grid" id="cat-grid"></div>
+      </main>
 
-function lockSite() {
-  document.body.classList.add('site-locked');
-  document.getElementById('entry-gate').classList.add('open');
-}
+      <footer>
+        <div class="wrap">
+          <p class="footer-text">
+            Live consumer intelligence from
+            <span style="color: #f97316">Reddit</span> ·
+            <span style="color: #eab308">Amazon</span> ·
+            <span style="color: #3b82f6">Google Trends</span> ·
+            <span style="color: #ec4899">Nykaa</span> ·
+            <span style="color: #1da1f2">Twitter</span>
+          </p>
+        </div>
+      </footer>
+    </div>
 
-function unlockSite() {
-  document.body.classList.remove('site-locked');
-  document.getElementById('entry-gate').classList.remove('open');
-}
+    <!-- ═══════════════════════════════════════ CATEGORY PAGE ═══════════════════════════════════════ -->
+    <div id="page-category" class="page">
+      <header>
+        <div class="wrap header-inner">
+          <div class="logo" onclick="showPage('home')">
+            <div class="logo-mark"><span>MS</span></div>
+            <div class="logo-text">
+              <span class="logo-name">Mosaic</span>
+              <span class="logo-ai">Signal</span>
+              <span class="logo-brand">| NPD Intelligence</span>
+            </div>
+          </div>
+          <button class="btn-primary" onclick="openModal()">
+            <span style="font-size: 16px; line-height: 1">+</span> New Analysis
+          </button>
+        </div>
+      </header>
+      <main
+        class="wrap"
+        style="flex: 1; padding-top: 28px; padding-bottom: 40px"
+      >
+        <button class="back-btn" onclick="showPage('home')">
+          ← Back to home
+        </button>
+        <div class="cat-page-header">
+          <div class="cat-page-title">
+            <span class="cat-page-icon" id="cp-icon"></span>
+            <div>
+              <div class="cat-page-name" id="cp-name"></div>
+              <div class="cat-page-count" id="cp-count"></div>
+            </div>
+          </div>
+        </div>
+        <div id="cat-content"></div>
+      </main>
+      <footer>
+        <div class="wrap">
+          <p class="footer-text">
+            Live consumer intelligence from
+            <span style="color: #f97316">Reddit</span> ·
+            <span style="color: #eab308">Amazon</span> ·
+            <span style="color: #3b82f6">Google Trends</span> ·
+            <span style="color: #ec4899">Nykaa</span> ·
+            <span style="color: #1da1f2">Twitter</span>
+          </p>
+        </div>
+      </footer>
+    </div>
 
-function submitEntryKey() {
-  const input = document.getElementById('entry-api-key');
-  const key = input.value.trim();
-  if (!key) {
-    showEntryError('Please enter your Gemini API key.');
-    return;
-  }
-  geminiApiKey = key;
-  localStorage.setItem(API_KEY_STORAGE, key);
-  hideEntryError();
-  unlockSite();
-  renderHome();
-}
+    <!-- ═══════════════════════════════════════ BRIEF PAGE ═══════════════════════════════════════ -->
+    <div id="page-brief" class="page">
+      <header>
+        <div class="wrap header-inner">
+          <div class="logo" onclick="showPage('home')">
+            <div class="logo-mark"><span>MS</span></div>
+            <div class="logo-text">
+              <span class="logo-name">Mosaic</span>
+              <span class="logo-ai">Signal</span>
+              <span class="logo-brand">| NPD Intelligence</span>
+            </div>
+          </div>
+          <button class="btn-primary" onclick="openModal()">
+            <span style="font-size: 16px; line-height: 1">+</span> New Analysis
+          </button>
+        </div>
+      </header>
+      <main
+        class="wrap"
+        style="flex: 1; padding-top: 28px; padding-bottom: 60px"
+      >
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0;
+          "
+        >
+          <button class="back-btn" id="brief-back-btn">
+            ← Back to category
+          </button>
+          <div style="display: flex; gap: 8px">
+            <button class="btn-delete-brief" id="brief-delete-btn">
+              🗑 Delete
+            </button>
+            <button class="btn-export" onclick="exportPDF()" id="export-btn">
+              ⬇ Export PDF
+            </button>
+          </div>
+        </div>
+        <div id="brief-content"></div>
+      </main>
+      <footer>
+        <div class="wrap">
+          <p class="footer-text">
+            Live consumer intelligence from
+            <span style="color: #f97316">Reddit</span> ·
+            <span style="color: #eab308">Amazon</span> ·
+            <span style="color: #3b82f6">Google Trends</span> ·
+            <span style="color: #ec4899">Nykaa</span> ·
+            <span style="color: #1da1f2">Twitter</span>
+          </p>
+        </div>
+      </footer>
+    </div>
 
-function initEntryGate() {
-  const key = GEMINI_KEY();
-  if (key) {
-    unlockSite();
-    renderHome();
-    return;
-  }
-  lockSite();
-  const input = document.getElementById('entry-api-key');
-  input.value = '';
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') submitEntryKey();
-  });
-  setTimeout(() => input.focus(), 30);
-}
+    <!-- ═══════════════════════════════════════ MODAL ═══════════════════════════════════════ -->
+    <div
+      class="modal-overlay"
+      id="modal-overlay"
+      onclick="handleOverlayClick(event)"
+    >
+      <div class="modal">
+        <div class="modal-header">
+          <div>
+            <div class="modal-title">New Analysis</div>
+            <div class="modal-sub">
+              Mine consumer data to generate product concepts
+            </div>
+          </div>
+          <button class="modal-close" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-body">
+          <!-- Category -->
+          <label class="field-label"
+            >Product Category <span style="color: red">*</span></label
+          >
+          <div class="cat-select-grid" id="modal-cat-grid"></div>
 
-// ══════════════════════════════════════════════════════
-// PAGE ROUTING
-// ══════════════════════════════════════════════════════
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-'+name).classList.add('active');
-  window.scrollTo(0,0);
-  if (name === 'home') renderHome();
-}
+          <!-- Data Sources -->
+          <label class="field-label" style="margin-top: 4px"
+            >Data Sources</label
+          >
 
-// ══════════════════════════════════════════════════════
-// HOME RENDER
-// ══════════════════════════════════════════════════════
-function renderHome() {
-  const grid = document.getElementById('cat-grid');
-  grid.innerHTML = CATEGORIES.map((c,i) => {
-    const count = countProducts(c.id);
-    return `<div class="cat-tile fade-up" style="animation-delay:${i*60}ms;opacity:0" onclick="showCategory('${c.id}')">
+          <div class="source-card">
+            <div class="source-head">
+              <div class="source-dot" style="background: #f97316">R</div>
+              <span class="source-name">Reddit</span>
+              <span class="source-hint">Community discussions</span>
+            </div>
+            <input
+              type="url"
+              id="inp-reddit"
+              placeholder="https://www.reddit.com/r/IndianSkincareAddicts"
+            />
+          </div>
+
+          <div class="source-card">
+            <div class="source-head">
+              <div class="source-dot" style="background: #3b82f6">📈</div>
+              <span class="source-name">Google Trends</span>
+              <span class="source-hint">Rising searches</span>
+            </div>
+            <input
+              type="text"
+              id="inp-trends"
+              placeholder="e.g. niacinamide serum India"
+            />
+          </div>
+
+          <div class="source-card">
+            <div class="source-head">
+              <div class="source-dot" style="background: #eab308">🛍</div>
+              <span class="source-name">Amazon / Nykaa / Flipkart</span>
+              <span class="source-hint">Review mining</span>
+            </div>
+            <input
+              type="text"
+              id="inp-amazon"
+              placeholder="e.g. face serum under 500 rupees"
+            />
+          </div>
+
+          <div class="source-card" style="border-style: dashed">
+            <div class="source-head">
+              <div class="source-dot" style="background: #374151">📄</div>
+              <span class="source-name">Sample Data</span>
+              <span class="source-hint">Optional CSV / TXT</span>
+            </div>
+            <input
+              type="file"
+              id="inp-file"
+              accept=".csv,.txt,.json"
+              style="display: none"
+              onchange="handleFile(event)"
+            />
+            <button
+              class="upload-btn"
+              onclick="document.getElementById('inp-file').click()"
+            >
+              ↑ Upload review data file
+            </button>
+            <div
+              id="file-success"
+              class="upload-success"
+              style="display: none"
+            ></div>
+          </div>
+
+          <div
+            id="modal-error"
+            class="error-box"
+            style="display: none; margin-top: 12px"
+          ></div>
+
+          <div id="progress-wrap" style="display: none; margin-top: 16px">
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" id="progress-bar"></div>
+            </div>
+            <div class="progress-label" id="progress-label">Initialising…</div>
+          </div>
+
+          <button
+            class="submit-btn"
+            id="submit-btn"
+            onclick="startAnalysis()"
+            style="margin-top: 16px"
+          >
+            Start Analysis → Generate 5 Product Concepts
+          </button>
+          <p class="loading-note" id="loading-note" style="display: none">
+            This takes 20–40 seconds — Gemini is searching the web live
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      // ══════════════════════════════════════════════════════
+      // CONFIG
+      // ══════════════════════════════════════════════════════
+      const API_KEY_STORAGE = "gemini_api_key";
+      let geminiApiKey = "";
+      function GEMINI_KEY() {
+        if (geminiApiKey) return geminiApiKey;
+        const saved =
+          localStorage.getItem(API_KEY_STORAGE) ||
+          sessionStorage.getItem(API_KEY_STORAGE) ||
+          "";
+        if (!saved) return "";
+        geminiApiKey = saved;
+        if (!localStorage.getItem(API_KEY_STORAGE)) {
+          localStorage.setItem(API_KEY_STORAGE, geminiApiKey);
+        }
+        return geminiApiKey;
+      }
+      const GEMINI_URL_PRIMARY =
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+      const GEMINI_URL_FALLBACK =
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+      const STORAGE_KEY = "productmind_v2";
+
+      const CATEGORIES = [
+        {
+          id: "hair-care",
+          label: "Hair Care",
+          icon: "💆",
+          subreddits: [
+            "Hairloss",
+            "HaircareScience",
+            "tressless",
+            "IndianSkincareAddicts",
+          ],
+          trend: "hair care India",
+          amazon: "hair serum India",
+        },
+        {
+          id: "skin-care",
+          label: "Skin Care",
+          icon: "✨",
+          subreddits: [
+            "IndianSkincareAddicts",
+            "SkincareAddiction",
+            "AsianBeauty",
+            "acne",
+            "30PlusSkinCare",
+          ],
+          trend: "skincare India",
+          amazon: "face serum India",
+        },
+        {
+          id: "nutrition",
+          label: "Nutritional Supplements",
+          icon: "💊",
+          subreddits: [
+            "IndiaFitness",
+            "Supplements",
+            "Biohackers",
+            "Nootropics",
+            "Nutrition",
+          ],
+          trend: "protein supplements India",
+          amazon: "multivitamins India",
+        },
+        {
+          id: "sexual-health",
+          label: "Sexual Health & Performance",
+          icon: "⚡",
+          subreddits: [
+            "sex",
+            "sexover30",
+            "erectiledysfunction",
+            "menshealth",
+            "AskMen",
+          ],
+          trend: "mens health India",
+          amazon: "mens wellness supplements India",
+        },
+        {
+          id: "personal-care",
+          label: "Personal Care & Hygiene",
+          icon: "🧴",
+          subreddits: [
+            "malegrooming",
+            "SkincareAddiction",
+            "AsianBeauty",
+            "IndianSkincareAddicts",
+            "Fragrance",
+          ],
+          trend: "personal care India",
+          amazon: "deodorant India",
+        },
+        {
+          id: "kids-wellness",
+          label: "Kids Nutrition & Wellness",
+          icon: "🌱",
+          subreddits: [
+            "Parenting",
+            "NewParents",
+            "toddlers",
+            "Mommit",
+            "Daddit",
+          ],
+          trend: "kids nutrition India",
+          amazon: "kids vitamins India",
+        },
+      ];
+
+      const BRANDS = {
+        "man-matters": {
+          name: "Man Matters",
+          color: "#1B4332",
+          light: "#D1FAE5",
+          tagline: "For men who take their health seriously",
+        },
+        "be-bodywise": {
+          name: "Be Bodywise",
+          color: "#831843",
+          light: "#FCE7F3",
+          tagline: "Science-backed wellness for women",
+        },
+        "little-joys": {
+          name: "Little Joys",
+          color: "#1E3A5F",
+          light: "#DBEAFE",
+          tagline: "Gentle nutrition for growing up",
+        },
+      };
+
+      const SOURCE_STYLES = {
+        Reddit: {
+          bg: "#FFF7ED",
+          border: "#FB923C",
+          color: "#C2410C",
+          dot: "#F97316",
+        },
+        Twitter: {
+          bg: "#EFF6FF",
+          border: "#60A5FA",
+          color: "#1D4ED8",
+          dot: "#3B82F6",
+        },
+        Amazon: {
+          bg: "#FFFBEB",
+          border: "#FBBF24",
+          color: "#B45309",
+          dot: "#F59E0B",
+        },
+        Nykaa: {
+          bg: "#FDF4FF",
+          border: "#D946EF",
+          color: "#86198F",
+          dot: "#A21CAF",
+        },
+        Flipkart: {
+          bg: "#EFF6FF",
+          border: "#6366F1",
+          color: "#3730A3",
+          dot: "#4F46E5",
+        },
+        "Google Trends": {
+          bg: "#F0FDF4",
+          border: "#4ADE80",
+          color: "#15803D",
+          dot: "#22C55E",
+        },
+      };
+
+      const FORMAT_ICONS = {
+        serum: "💧",
+        tablet: "💊",
+        gummy: "🐻",
+        shampoo: "🧴",
+      };
+
+      // ══════════════════════════════════════════════════════
+      // STATE
+      // ══════════════════════════════════════════════════════
+      let currentCategoryId = null;
+      let sampleFileText = "";
+      let selectedCatId = "";
+      let progressInterval = null;
+      let loadingInterval = null;
+      let redditSkipNoticeShown = false;
+
+      function loadStore() {
+        try {
+          return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+        } catch {
+          return {};
+        }
+      }
+      function saveStore(data) {
+        try {
+          const serialized = JSON.stringify(data);
+          // Warn if approaching 4MB (localStorage cap is ~5MB)
+          if (serialized.length > 4_000_000) {
+            showToast(
+              "⚠️ Storage nearly full — consider deleting old analyses",
+            );
+          }
+          localStorage.setItem(STORAGE_KEY, serialized);
+        } catch (e) {
+          // QuotaExceededError — prune oldest entry per category and retry
+          try {
+            const store = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+            let pruned = false;
+            for (const key of Object.keys(store)) {
+              if (store[key].length > 1) {
+                store[key].pop();
+                pruned = true;
+                break;
+              }
+            }
+            if (pruned)
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
+            showToast(
+              "⚠️ Storage full — oldest analysis removed to make space",
+            );
+          } catch (_) {}
+        }
+      }
+      function getEntries(catId) {
+        return loadStore()[catId] || [];
+      }
+      function addEntry(catId, entry) {
+        const store = loadStore();
+        if (!store[catId]) store[catId] = [];
+        store[catId].unshift(entry);
+        saveStore(store);
+      }
+      function countProducts(catId) {
+        return getEntries(catId).reduce(
+          (s, e) => s + (e.products?.length || 0),
+          0,
+        );
+      }
+
+      function showEntryError(msg) {
+        const el = document.getElementById("entry-error");
+        el.textContent = msg;
+        el.style.display = "block";
+      }
+
+      function hideEntryError() {
+        document.getElementById("entry-error").style.display = "none";
+      }
+
+      function lockSite() {
+        document.body.classList.add("site-locked");
+        document.getElementById("entry-gate").classList.add("open");
+      }
+
+      function unlockSite() {
+        document.body.classList.remove("site-locked");
+        document.getElementById("entry-gate").classList.remove("open");
+      }
+
+      function submitEntryKey() {
+        const input = document.getElementById("entry-api-key");
+        const key = input.value.trim();
+        if (!key) {
+          showEntryError("Please enter your Gemini API key.");
+          return;
+        }
+        geminiApiKey = key;
+        localStorage.setItem(API_KEY_STORAGE, key);
+        hideEntryError();
+        unlockSite();
+        renderHome();
+      }
+
+      function initEntryGate() {
+        const key = GEMINI_KEY();
+        if (key) {
+          unlockSite();
+          renderHome();
+          return;
+        }
+        lockSite();
+        const input = document.getElementById("entry-api-key");
+        input.value = "";
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") submitEntryKey();
+        });
+        setTimeout(() => input.focus(), 30);
+      }
+
+      // ══════════════════════════════════════════════════════
+      // PAGE ROUTING
+      // ══════════════════════════════════════════════════════
+      function showPage(name) {
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.remove("active"));
+        document.getElementById("page-" + name).classList.add("active");
+        window.scrollTo(0, 0);
+        if (name === "home") renderHome();
+      }
+
+      // ══════════════════════════════════════════════════════
+      // HOME RENDER
+      // ══════════════════════════════════════════════════════
+      function renderHome() {
+        const grid = document.getElementById("cat-grid");
+        grid.innerHTML = CATEGORIES.map((c, i) => {
+          const count = countProducts(c.id);
+          return `<div class="cat-tile fade-up" style="animation-delay:${i * 60}ms;opacity:0" onclick="showCategory('${c.id}')">
       <span class="cat-tile-icon">${c.icon}</span>
       <div class="cat-tile-name">${c.label}</div>
-      <div class="cat-tile-count ${count>0?'has-data':''}">${count>0?count+' concept'+(count!==1?'s':'')+' generated':'No analyses yet'}</div>
+      <div class="cat-tile-count ${count > 0 ? "has-data" : ""}">${count > 0 ? count + " concept" + (count !== 1 ? "s" : "") + " generated" : "No analyses yet"}</div>
       <span class="cat-tile-arrow">→</span>
     </div>`;
-  }).join('');
-}
+        }).join("");
+      }
 
-// ══════════════════════════════════════════════════════
-// CATEGORY PAGE
-// ══════════════════════════════════════════════════════
-function showCategory(catId) {
-  currentCategoryId = catId;
-  const cat = CATEGORIES.find(c => c.id === catId);
-  document.getElementById('cp-icon').textContent = cat.icon;
-  document.getElementById('cp-name').textContent = cat.label;
-  const count = countProducts(catId);
-  document.getElementById('cp-count').textContent = count + ' concept'+(count!==1?'s':'')+' generated';
-  renderCategoryContent(catId);
-  showPage('category');
-}
+      // ══════════════════════════════════════════════════════
+      // CATEGORY PAGE
+      // ══════════════════════════════════════════════════════
+      function showCategory(catId) {
+        currentCategoryId = catId;
+        const cat = CATEGORIES.find((c) => c.id === catId);
+        document.getElementById("cp-icon").textContent = cat.icon;
+        document.getElementById("cp-name").textContent = cat.label;
+        const count = countProducts(catId);
+        document.getElementById("cp-count").textContent =
+          count + " concept" + (count !== 1 ? "s" : "") + " generated";
+        renderCategoryContent(catId);
+        showPage("category");
+      }
 
-function renderCategoryContent(catId) {
-  const entries = getEntries(catId);
-  const el = document.getElementById('cat-content');
-  if (entries.length === 0) {
-    const cat = CATEGORIES.find(c=>c.id===catId);
-    el.innerHTML = `<div class="empty-state">
+      function renderCategoryContent(catId) {
+        const entries = getEntries(catId);
+        const el = document.getElementById("cat-content");
+        if (entries.length === 0) {
+          const cat = CATEGORIES.find((c) => c.id === catId);
+          el.innerHTML = `<div class="empty-state">
       <div class="empty-icon">${cat.icon}</div>
       <div class="empty-title">No analyses yet</div>
       <div class="empty-sub">Use the <strong>New Analysis</strong> button in the header to generate AI-powered product concepts for ${cat.label}.</div>
     </div>`;
-    return;
-  }
-  const cat = CATEGORIES.find(c=>c.id===catId);
-  el.innerHTML = entries.map((entry,ei) => {
-    const ts = new Date(entry.timestamp);
-    const now = new Date();
-    const diffH = (now - ts) / 36e5;
-    const timeStr = diffH < 1 ? 'Just now'
-      : diffH < 24 ? `Today, ${ts.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}`
-      : diffH < 48 ? `Yesterday, ${ts.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}`
-      : ts.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
-    const subPills = (cat.subreddits||[]).map(s=>`<span class="sub-pill">r/${s}</span>`).join('');
-    return `
-    <div class="analysis-group fade-up" style="animation-delay:${ei*80}ms;opacity:0">
+          return;
+        }
+        const cat = CATEGORIES.find((c) => c.id === catId);
+        el.innerHTML = entries
+          .map((entry, ei) => {
+            const ts = new Date(entry.timestamp);
+            const now = new Date();
+            const diffH = (now - ts) / 36e5;
+            const timeStr =
+              diffH < 1
+                ? "Just now"
+                : diffH < 24
+                  ? `Today, ${ts.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}`
+                  : diffH < 48
+                    ? `Yesterday, ${ts.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}`
+                    : ts.toLocaleDateString("en-IN", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                      });
+            const subPills = (cat.subreddits || [])
+              .map((s) => `<span class="sub-pill">r/${s}</span>`)
+              .join("");
+            return `
+    <div class="analysis-group fade-up" style="animation-delay:${ei * 80}ms;opacity:0">
       <div class="analysis-meta">
         <div class="analysis-meta-left">
           <span class="analysis-meta-time">🕐 ${timeStr}</span>
-          ${entry.meta?.trend ? `<span class="analysis-meta-topic">· "${entry.meta.trend}"</span>` : ''}
+          ${entry.meta?.trend ? `<span class="analysis-meta-topic">· "${entry.meta.trend}"</span>` : ""}
         </div>
         <div class="analysis-meta-subs">${subPills}</div>
         <button class="delete-analysis-btn" onclick="deleteEntry('${catId}','${entry.id}')" title="Delete this analysis">✕</button>
       </div>
       <div class="products-grid">
-        ${(entry.products||[]).map((p,pi) => renderProductCard(p, catId, entry.id, pi)).join('')}
+        ${(entry.products || []).map((p, pi) => renderProductCard(p, catId, entry.id, pi)).join("")}
       </div>
     </div>`;
-  }).join('');
-}
+          })
+          .join("");
+      }
 
-function deleteEntry(catId, entryId) {
-  if (!confirm('Delete this entire analysis batch?')) return;
-  const store = loadStore();
-  if (store[catId]) {
-    store[catId] = store[catId].filter(e => e.id !== entryId);
-    saveStore(store);
-  }
-  showCategory(catId);
-}
+      function deleteEntry(catId, entryId) {
+        if (!confirm("Delete this entire analysis batch?")) return;
+        const store = loadStore();
+        if (store[catId]) {
+          store[catId] = store[catId].filter((e) => e.id !== entryId);
+          saveStore(store);
+        }
+        showCategory(catId);
+      }
 
-function deleteProduct(catId, entryId, productIdx) {
-  if (!confirm('Remove this product concept?')) return;
-  const store = loadStore();
-  const entry = (store[catId] || []).find(e => e.id === entryId);
-  if (!entry) return;
-  entry.products.splice(productIdx, 1);
-  if (entry.products.length === 0) {
-    store[catId] = store[catId].filter(e => e.id !== entryId);
-  }
-  saveStore(store);
-  showCategory(catId);
-}
+      function deleteProduct(catId, entryId, productIdx) {
+        if (!confirm("Remove this product concept?")) return;
+        const store = loadStore();
+        const entry = (store[catId] || []).find((e) => e.id === entryId);
+        if (!entry) return;
+        entry.products.splice(productIdx, 1);
+        if (entry.products.length === 0) {
+          store[catId] = store[catId].filter((e) => e.id !== entryId);
+        }
+        saveStore(store);
+        showCategory(catId);
+      }
 
-function renderProductCard(p, catId, entryId, idx) {
-  const brand = BRANDS[p.brand] || BRANDS['be-bodywise'];
-  const comp = calcScore(p.scores);
-  const scores = p.scores || {};
-  const fmt = (p.format||'').toLowerCase();
-  const fmtIcon = FORMAT_ICONS[fmt] || '📦';
-  return `<div class="product-card-wrap fade-up" style="animation-delay:${idx*80}ms;opacity:0">
+      function renderProductCard(p, catId, entryId, idx) {
+        const brand = BRANDS[p.brand] || BRANDS["be-bodywise"];
+        const comp = calcScore(p.scores);
+        const scores = p.scores || {};
+        const fmt = (p.format || "").toLowerCase();
+        const fmtIcon = FORMAT_ICONS[fmt] || "📦";
+        return `<div class="product-card-wrap fade-up" style="animation-delay:${idx * 80}ms;opacity:0">
     <button class="delete-product-btn" onclick="deleteProduct('${catId}','${entryId}',${idx})" title="Remove concept">✕</button>
     <div class="product-card">
       <div class="card-brand-stripe" style="background:${brand.color}"></div>
       <div class="card-body">
         <div class="card-top-row">
           <div class="brand-badge" style="background:${brand.color}">${brand.name}</div>
-          <span class="format-badge" title="${fmt}">${fmtIcon} <span style="text-transform:capitalize">${fmt||'—'}</span></span>
+          <span class="format-badge" title="${fmt}">${fmtIcon} <span style="text-transform:capitalize">${fmt || "—"}</span></span>
         </div>
-        <div class="card-name">${p.productName||'Unnamed Product'}</div>
-        ${p.tagline?`<div class="card-tagline">${p.tagline}</div>`:''}
-        <div class="card-desc">${(p.description||'').slice(0,130)}${(p.description||'').length>130?'...':''}</div>
+        <div class="card-name">${p.productName || "Unnamed Product"}</div>
+        ${p.tagline ? `<div class="card-tagline">${p.tagline}</div>` : ""}
+        <div class="card-desc">${(p.description || "").slice(0, 130)}${(p.description || "").length > 130 ? "..." : ""}</div>
         <div class="card-meta">
-          <span class="meta-pill">💰 ${p.pricePoint||'TBD'}</span>
+          <span class="meta-pill">💰 ${p.pricePoint || "TBD"}</span>
         </div>
         <div class="card-scores">
-          ${scoreRow('Market Size', scores.marketSize, false)}
-          ${scoreRow('Competition', scores.competitionIntensity, true)}
-          ${scoreRow('Brand Fit', scores.brandAlignment, false)}
+          ${scoreRow("Market Size", scores.marketSize, false)}
+          ${scoreRow("Competition", scores.competitionIntensity, true)}
+          ${scoreRow("Brand Fit", scores.brandAlignment, false)}
         </div>
         <button class="view-brief-btn" onclick="showBrief('${catId}','${entryId}',${idx})">View Full Brief →</button>
       </div>
     </div>
   </div>`;
-}
+      }
 
-function scoreRow(label, val, invert) {
-  const v = val||0;
-  const color = invert ? (v<=4?'#22C55E':v<=7?'#F59E0B':'#EF4444') : (v>=7?'#22C55E':v>=4?'#F59E0B':'#EF4444');
-  return `<div class="score-row">
+      function scoreRow(label, val, invert) {
+        const v = val || 0;
+        const color = invert
+          ? v <= 4
+            ? "#22C55E"
+            : v <= 7
+              ? "#F59E0B"
+              : "#EF4444"
+          : v >= 7
+            ? "#22C55E"
+            : v >= 4
+              ? "#F59E0B"
+              : "#EF4444";
+        return `<div class="score-row">
     <span class="score-label">${label}</span>
-    <div class="score-track"><div class="score-fill" style="width:${v*10}%;background:${color}"></div></div>
+    <div class="score-track"><div class="score-fill" style="width:${v * 10}%;background:${color}"></div></div>
     <span class="score-val">${v}/10</span>
   </div>`;
-}
+      }
 
-function calcScore(s) {
-  if (!s) return 0;
-  return ((s.marketSize + s.competitionIntensity + s.brandAlignment) / 3).toFixed(1);
-}
+      function calcScore(s) {
+        if (!s) return 0;
+        return (
+          (s.marketSize + s.competitionIntensity + s.brandAlignment) /
+          3
+        ).toFixed(1);
+      }
 
-// ══════════════════════════════════════════════════════
-// BRIEF PAGE
-// ══════════════════════════════════════════════════════
-function showBrief(catId, entryId, idx) {
-  const entries = getEntries(catId);
-  const entry = entries.find(e=>e.id===entryId);
-  const p = entry?.products?.[idx];
-  if (!p) return;
+      // ══════════════════════════════════════════════════════
+      // BRIEF PAGE
+      // ══════════════════════════════════════════════════════
+      function showBrief(catId, entryId, idx) {
+        const entries = getEntries(catId);
+        const entry = entries.find((e) => e.id === entryId);
+        const p = entry?.products?.[idx];
+        if (!p) return;
 
-  document.getElementById('brief-back-btn').onclick = () => showCategory(catId);
-  document.getElementById('brief-delete-btn').onclick = () => {
-    if (!confirm('Remove this product concept?')) return;
-    const store = loadStore();
-    const ent = (store[catId] || []).find(e => e.id === entryId);
-    if (ent) {
-      ent.products.splice(idx, 1);
-      if (ent.products.length === 0) store[catId] = store[catId].filter(e => e.id !== entryId);
-      saveStore(store);
-    }
-    showCategory(catId);
-  };
-  const brand = BRANDS[p.brand] || BRANDS['be-bodywise'];
-  const comp = calcScore(p.scores);
-  const scores = p.scores||{};
+        document.getElementById("brief-back-btn").onclick = () =>
+          showCategory(catId);
+        document.getElementById("brief-delete-btn").onclick = () => {
+          if (!confirm("Remove this product concept?")) return;
+          const store = loadStore();
+          const ent = (store[catId] || []).find((e) => e.id === entryId);
+          if (ent) {
+            ent.products.splice(idx, 1);
+            if (ent.products.length === 0)
+              store[catId] = store[catId].filter((e) => e.id !== entryId);
+            saveStore(store);
+          }
+          showCategory(catId);
+        };
+        const brand = BRANDS[p.brand] || BRANDS["be-bodywise"];
+        const comp = calcScore(p.scores);
+        const scores = p.scores || {};
 
-  const sourceTags = p.insights?.map(ins => {
-    const s = SOURCE_STYLES[ins.source] || SOURCE_STYLES['Amazon'];
-    return `<div class="insight-card">
+        const sourceTags =
+          p.insights
+            ?.map((ins) => {
+              const s = SOURCE_STYLES[ins.source] || SOURCE_STYLES["Amazon"];
+              return `<div class="insight-card">
       <div class="insight-top">
         <span class="source-tag" style="background:${s.bg};border:1px solid ${s.border};color:${s.color}">
           <span style="width:6px;height:6px;border-radius:50%;background:${s.dot};display:inline-block"></span>
           ${ins.source}
         </span>
-        ${ins.url?`<a href="${ins.url}" target="_blank" class="source-link">View source ↗</a>`:''}
+        ${ins.url ? `<a href="${ins.url}" target="_blank" class="source-link">View source ↗</a>` : ""}
       </div>
       <div class="insight-text">"${ins.text}"</div>
     </div>`;
-  }).join('') || '<p style="color:#aaa;font-size:13px">No insights available.</p>';
+            })
+            .join("") ||
+          '<p style="color:#aaa;font-size:13px">No insights available.</p>';
 
-  const compCards = p.competitors?.map(c => `<div class="comp-card">
+        const compCards =
+          p.competitors
+            ?.map(
+              (c) => `<div class="comp-card">
     <div class="comp-name">${c.name}</div>
-    <div class="comp-sub">${c.brand||''} ${c.price?'· '+c.price:''}</div>
+    <div class="comp-sub">${c.brand || ""} ${c.price ? "· " + c.price : ""}</div>
     <div class="comp-why"><strong>Why we win:</strong> ${c.whyWeBetter}</div>
-    ${c.url?`<a href="${c.url}" target="_blank" class="comp-link">View product ↗</a>`:''}
-  </div>`).join('') || '';
+    ${c.url ? `<a href="${c.url}" target="_blank" class="comp-link">View product ↗</a>` : ""}
+  </div>`,
+            )
+            .join("") || "";
 
-  const ingChips = (p.keyIngredients||[]).map(i => `<span class="ing-chip">${i}</span>`).join('');
+        const ingChips = (p.keyIngredients || [])
+          .map((i) => `<span class="ing-chip">${i}</span>`)
+          .join("");
 
-  document.getElementById('brief-content').innerHTML = `
+        document.getElementById("brief-content").innerHTML = `
     <div class="brief-hero fade-up" style="opacity:0">
       <div class="brief-hero-top">
         <div style="flex:1">
           <div class="brief-badges">
             <span class="brand-badge" style="background:${brand.color}">${brand.name}</span>
-            <span class="meta-pill" style="text-transform:capitalize">${p.format||'—'}</span>
-            <span class="meta-pill">${p.pricePoint||''}</span>
+            <span class="meta-pill" style="text-transform:capitalize">${p.format || "—"}</span>
+            <span class="meta-pill">${p.pricePoint || ""}</span>
           </div>
           <div class="brief-name">${p.productName}</div>
-          ${p.tagline?`<div class="brief-tagline">${p.tagline}</div>`:''}
+          ${p.tagline ? `<div class="brief-tagline">${p.tagline}</div>` : ""}
         </div>
         <div class="opp-score">
           <div class="opp-score-num">${comp}</div>
           <div class="opp-score-label">opportunity<br>score</div>
         </div>
       </div>
-      ${p.brandRationale?`<div class="brand-rationale"><span class="brand-rationale-label">Brand fit:</span><span class="brand-rationale-text">${p.brandRationale}</span></div>`:''}
+      ${p.brandRationale ? `<div class="brand-rationale"><span class="brand-rationale-label">Brand fit:</span><span class="brand-rationale-text">${p.brandRationale}</span></div>` : ""}
     </div>
 
     <div class="brief-grid">
@@ -1341,14 +2654,22 @@ function showBrief(catId, entryId, idx) {
           <div class="brief-section-head"><span class="brief-section-icon">⚡</span><span class="brief-section-title">Why This Will Work</span></div>
           <div class="brief-section-body"><div class="why-box">${p.whyThisWillWork}</div></div>
         </div>
-        ${p.noveltyStatement?`<div class="brief-section fade-up" style="opacity:0;animation-delay:130ms">
+        ${
+          p.noveltyStatement
+            ? `<div class="brief-section fade-up" style="opacity:0;animation-delay:130ms">
           <div class="brief-section-head"><span class="brief-section-icon">💡</span><span class="brief-section-title">Why It's Novel</span></div>
           <div class="brief-section-body"><p class="brief-text">${p.noveltyStatement}</p></div>
-        </div>`:''}
-        ${p.launchReadiness?`<div class="brief-section fade-up" style="opacity:0;animation-delay:135ms">
+        </div>`
+            : ""
+        }
+        ${
+          p.launchReadiness
+            ? `<div class="brief-section fade-up" style="opacity:0;animation-delay:135ms">
           <div class="brief-section-head"><span class="brief-section-icon">🚦</span><span class="brief-section-title">Launch Dependency</span></div>
           <div class="brief-section-body"><p class="brief-text" style="color:var(--amber)">${p.launchReadiness}</p></div>
-        </div>`:''}
+        </div>`
+            : ""
+        }
 
         <div class="brief-section fade-up" style="opacity:0;animation-delay:160ms">
           <div class="brief-section-head"><span class="brief-section-icon">📊</span><span class="brief-section-title">Market Gap</span></div>
@@ -1360,7 +2681,7 @@ function showBrief(catId, entryId, idx) {
         </div>
         <div class="brief-section fade-up" style="opacity:0;animation-delay:240ms">
           <div class="brief-section-head"><span class="brief-section-icon">🏆</span><span class="brief-section-title">Competitor Analysis</span></div>
-          <div class="brief-section-body">${compCards||'<p style="color:#aaa;font-size:13px">No competitor data.</p>'}</div>
+          <div class="brief-section-body">${compCards || '<p style="color:#aaa;font-size:13px">No competitor data.</p>'}</div>
         </div>
       </div>
 
@@ -1369,9 +2690,9 @@ function showBrief(catId, entryId, idx) {
           <div class="brief-section-head"><span class="brief-section-icon">📈</span><span class="brief-section-title">Opportunity Scores</span></div>
           <div class="brief-section-body">
             <div class="scores-stack">
-              ${scoreRow('Market Size', scores.marketSize, false)}
-              ${scoreRow('Competition', scores.competitionIntensity, true)}
-              ${scoreRow('Brand Fit', scores.brandAlignment, false)}
+              ${scoreRow("Market Size", scores.marketSize, false)}
+              ${scoreRow("Competition", scores.competitionIntensity, true)}
+              ${scoreRow("Brand Fit", scores.brandAlignment, false)}
             </div>
             <div class="scores-composite">
               <span class="scores-composite-label">Composite Score</span>
@@ -1405,145 +2726,183 @@ function showBrief(catId, entryId, idx) {
     </div>
   `;
 
-  showPage('brief');
-}
+        showPage("brief");
+      }
 
-// ══════════════════════════════════════════════════════
-// MODAL
-// ══════════════════════════════════════════════════════
-function buildModalCatGrid() {
-  const grid = document.getElementById('modal-cat-grid');
-  grid.innerHTML = CATEGORIES.map(c => `
+      // ══════════════════════════════════════════════════════
+      // MODAL
+      // ══════════════════════════════════════════════════════
+      function buildModalCatGrid() {
+        const grid = document.getElementById("modal-cat-grid");
+        grid.innerHTML = CATEGORIES.map(
+          (c) => `
     <button class="cat-btn" id="mcb-${c.id}" onclick="selectModalCat('${c.id}')">
       ${c.icon} ${c.label}
-    </button>`).join('');
-}
-
-function selectModalCat(id) {
-  selectedCatId = id;
-  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('selected'));
-  document.getElementById('mcb-'+id)?.classList.add('selected');
-  const cat = CATEGORIES.find(c=>c.id===id);
-  if (cat) {
-    const subList = (cat.subreddits||[]).map(s=>'r/'+s).join(', ');
-    document.getElementById('inp-reddit').value = subList;
-    document.getElementById('inp-reddit').readOnly = true;
-    if (!document.getElementById('inp-trends').value) document.getElementById('inp-trends').value = cat.trend;
-    if (!document.getElementById('inp-amazon').value) document.getElementById('inp-amazon').value = cat.amazon;
-  }
-}
-
-function openModal() {
-  buildModalCatGrid();
-  // Pre-select current category if on category page
-  if (currentCategoryId) {
-    selectedCatId = currentCategoryId;
-    setTimeout(() => {
-      document.getElementById('mcb-'+currentCategoryId)?.classList.add('selected');
-      const cat = CATEGORIES.find(c=>c.id===currentCategoryId);
-      if (cat) {
-        const subList = (cat.subreddits||[]).map(s=>'r/'+s).join(', ');
-        document.getElementById('inp-reddit').value = subList;
-        document.getElementById('inp-reddit').readOnly = true;
-        // Only pre-fill if user hasn't typed anything
-        if (!document.getElementById('inp-trends').value) document.getElementById('inp-trends').value = cat.trend;
-        if (!document.getElementById('inp-amazon').value) document.getElementById('inp-amazon').value = cat.amazon;
+    </button>`,
+        ).join("");
       }
-    }, 10);
-  }
-  document.getElementById('modal-overlay').classList.add('open');
-  document.getElementById('modal-error').style.display = 'none';
-  document.getElementById('file-success').style.display = 'none';
-  sampleFileText = '';
-  selectedCatId = selectedCatId || '';
-}
 
-function closeModal() {
-  document.getElementById('modal-overlay').classList.remove('open');
-  resetModal();
-}
+      function selectModalCat(id) {
+        selectedCatId = id;
+        document
+          .querySelectorAll(".cat-btn")
+          .forEach((b) => b.classList.remove("selected"));
+        document.getElementById("mcb-" + id)?.classList.add("selected");
+        const cat = CATEGORIES.find((c) => c.id === id);
+        if (cat) {
+          const subList = (cat.subreddits || [])
+            .map((s) => "r/" + s)
+            .join(", ");
+          document.getElementById("inp-reddit").value = subList;
+          document.getElementById("inp-reddit").readOnly = true;
+          if (!document.getElementById("inp-trends").value)
+            document.getElementById("inp-trends").value = cat.trend;
+          if (!document.getElementById("inp-amazon").value)
+            document.getElementById("inp-amazon").value = cat.amazon;
+        }
+      }
 
-function resetModal() {
-  document.getElementById('inp-reddit').value = '';
-  document.getElementById('inp-reddit').readOnly = false;
-  document.getElementById('inp-trends').value = '';
-  document.getElementById('inp-amazon').value = '';
-  document.getElementById('inp-file').value = '';
-  document.getElementById('file-success').style.display = 'none';
-  document.getElementById('modal-error').style.display = 'none';
-  document.getElementById('loading-note').style.display = 'none';
-  const btn = document.getElementById('submit-btn');
-  btn.disabled = false;
-  btn.innerHTML = 'Start Analysis → Generate 5 Product Concepts';
-  sampleFileText = '';
-}
+      function openModal() {
+        buildModalCatGrid();
+        // Pre-select current category if on category page
+        if (currentCategoryId) {
+          selectedCatId = currentCategoryId;
+          setTimeout(() => {
+            document
+              .getElementById("mcb-" + currentCategoryId)
+              ?.classList.add("selected");
+            const cat = CATEGORIES.find((c) => c.id === currentCategoryId);
+            if (cat) {
+              const subList = (cat.subreddits || [])
+                .map((s) => "r/" + s)
+                .join(", ");
+              document.getElementById("inp-reddit").value = subList;
+              document.getElementById("inp-reddit").readOnly = true;
+              // Only pre-fill if user hasn't typed anything
+              if (!document.getElementById("inp-trends").value)
+                document.getElementById("inp-trends").value = cat.trend;
+              if (!document.getElementById("inp-amazon").value)
+                document.getElementById("inp-amazon").value = cat.amazon;
+            }
+          }, 10);
+        }
+        document.getElementById("modal-overlay").classList.add("open");
+        document.getElementById("modal-error").style.display = "none";
+        document.getElementById("file-success").style.display = "none";
+        sampleFileText = "";
+        selectedCatId = selectedCatId || "";
+      }
 
-function handleOverlayClick(e) {
-  if (e.target === document.getElementById('modal-overlay')) closeModal();
-}
+      function closeModal() {
+        document.getElementById("modal-overlay").classList.remove("open");
+        resetModal();
+      }
 
-function handleFile(e) {
-  const file = e.target.files?.[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    sampleFileText = ev.target.result;
-    document.getElementById('file-success').style.display = 'block';
-    document.getElementById('file-success').textContent = `✓ ${file.name} loaded (${sampleFileText.length.toLocaleString()} characters)`;
-  };
-  reader.readAsText(file);
-}
+      function resetModal() {
+        document.getElementById("inp-reddit").value = "";
+        document.getElementById("inp-reddit").readOnly = false;
+        document.getElementById("inp-trends").value = "";
+        document.getElementById("inp-amazon").value = "";
+        document.getElementById("inp-file").value = "";
+        document.getElementById("file-success").style.display = "none";
+        document.getElementById("modal-error").style.display = "none";
+        document.getElementById("loading-note").style.display = "none";
+        const btn = document.getElementById("submit-btn");
+        btn.disabled = false;
+        btn.innerHTML = "Start Analysis → Generate 5 Product Concepts";
+        sampleFileText = "";
+      }
 
-// ══════════════════════════════════════════════════════
-// ANALYSIS ENGINE
-// ══════════════════════════════════════════════════════
-async function fetchReddit(subreddits) {
-  if (!Array.isArray(subreddits) || subreddits.length === 0) return [];
+      function handleOverlayClick(e) {
+        if (e.target === document.getElementById("modal-overlay")) closeModal();
+      }
 
-  const blockedByBrowser = window.location.protocol === 'file:' || window.location.origin === 'null';
-  if (blockedByBrowser) {
-    if (!redditSkipNoticeShown) {
-      showToast('ℹ️ Reddit fetch skipped in local file mode; using web-search signals instead.');
-      redditSkipNoticeShown = true;
-    }
-    return [];
-  }
+      function handleFile(e) {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          sampleFileText = ev.target.result;
+          document.getElementById("file-success").style.display = "block";
+          document.getElementById("file-success").textContent =
+            `✓ ${file.name} loaded (${sampleFileText.length.toLocaleString()} characters)`;
+        };
+        reader.readAsText(file);
+      }
 
-  const results = await Promise.all(subreddits.map(async sub => {
-    try {
-      const u = `https://www.reddit.com/r/${sub}.json?limit=15&sort=top`;
-      const r = await fetch(u);
-      if (!r.ok) return [];
-      const j = await r.json();
-      return (j?.data?.children||[]).slice(0,12).map(p => ({
-        title: p.data.title,
-        score: p.data.score,
-        comments: p.data.num_comments,
-        url: 'https://reddit.com'+p.data.permalink,
-        text: (p.data.selftext||'').slice(0,200),
-        sub: p.data.subreddit_name_prefixed||('r/'+sub),
-      }));
-    } catch { return []; }
-  }));
-  return results.flat().slice(0, 40);
-}
+      // ══════════════════════════════════════════════════════
+      // ANALYSIS ENGINE
+      // ══════════════════════════════════════════════════════
+      async function fetchReddit(subreddits) {
+        if (!Array.isArray(subreddits) || subreddits.length === 0) return [];
 
-function buildPrompt(cat, redditPosts, trend, amazon, sample) {
-  const redditStr = redditPosts.length > 0
-    ? redditPosts.map((p,i)=>`${i+1}. "${p.title}" (${p.score} upvotes)\n   URL: ${p.url}${p.text?'\n   Context: '+p.text:''}`).join('\n')
-    : `No Reddit posts fetched (some subreddits may have access restrictions). Rely primarily on Google Search to find insights from wellness communities, forums, and review sites relevant to the "${cat}" category.`;
+        const blockedByBrowser =
+          window.location.protocol === "file:" ||
+          window.location.origin === "null";
+        if (blockedByBrowser) {
+          if (!redditSkipNoticeShown) {
+            showToast(
+              "ℹ️ Reddit fetch skipped in local file mode; using web-search signals instead.",
+            );
+            redditSkipNoticeShown = true;
+          }
+          return [];
+        }
 
-  const sampleStr = sample ? `\nUSER-PROVIDED SAMPLE DATA (analyse this too):\n${sample.slice(0,3000)}\n` : '';
+        const results = await Promise.all(
+          subreddits.map(async (sub) => {
+            try {
+              const u = `https://www.reddit.com/r/${sub}.json?limit=15&sort=top`;
+              const r = await fetch(u);
+              if (!r.ok) return [];
+              const j = await r.json();
+              return (j?.data?.children || []).slice(0, 12).map((p) => ({
+                title: p.data.title,
+                score: p.data.score,
+                comments: p.data.num_comments,
+                url: "https://reddit.com" + p.data.permalink,
+                text: (p.data.selftext || "").slice(0, 200),
+                sub: p.data.subreddit_name_prefixed || "r/" + sub,
+              }));
+            } catch {
+              return [];
+            }
+          }),
+        );
+        return results.flat().slice(0, 40);
+      }
 
-  // Build explicit user signal block — these MUST drive the output
-  const userSignals = [];
-  if (trend) userSignals.push(`- Google Trends keyword entered by user: "${trend}" — products MUST be directly relevant to this rising search signal`);
-  if (amazon) userSignals.push(`- Amazon/Nykaa search term entered by user: "${amazon}" — analyse the gap in results for this exact query and build concepts that address it`);
-  const userSignalBlock = userSignals.length > 0
-    ? `\nUSER-SPECIFIED FOCUS — THIS IS MANDATORY, NOT OPTIONAL:\nThe user has given you specific market signals. Every product concept you generate MUST be directly addressing these inputs. Do not drift into generic category ideas.\n${userSignals.join('\n')}\n`
-    : '';
+      function buildPrompt(cat, redditPosts, trend, amazon, sample) {
+        const redditStr =
+          redditPosts.length > 0
+            ? redditPosts
+                .map(
+                  (p, i) =>
+                    `${i + 1}. "${p.title}" (${p.score} upvotes)\n   URL: ${p.url}${p.text ? "\n   Context: " + p.text : ""}`,
+                )
+                .join("\n")
+            : `No Reddit posts fetched (some subreddits may have access restrictions). Rely primarily on Google Search to find insights from wellness communities, forums, and review sites relevant to the "${cat}" category.`;
 
-  return `You are a senior NPD strategist at Mosaic Wellness, a D2C health & wellness company in India. Your output goes directly to a Product Manager to act on — every field must be specific, evidence-backed, and commercially grounded.
+        const sampleStr = sample
+          ? `\nUSER-PROVIDED SAMPLE DATA (analyse this too):\n${sample.slice(0, 3000)}\n`
+          : "";
+
+        // Build explicit user signal block — these MUST drive the output
+        const userSignals = [];
+        if (trend)
+          userSignals.push(
+            `- Google Trends keyword entered by user: "${trend}" — products MUST be directly relevant to this rising search signal`,
+          );
+        if (amazon)
+          userSignals.push(
+            `- Amazon/Nykaa search term entered by user: "${amazon}" — analyse the gap in results for this exact query and build concepts that address it`,
+          );
+        const userSignalBlock =
+          userSignals.length > 0
+            ? `\nUSER-SPECIFIED FOCUS — THIS IS MANDATORY, NOT OPTIONAL:\nThe user has given you specific market signals. Every product concept you generate MUST be directly addressing these inputs. Do not drift into generic category ideas.\n${userSignals.join("\n")}\n`
+            : "";
+
+        return `You are a senior NPD strategist at Mosaic Wellness, a D2C health & wellness company in India. Your output goes directly to a Product Manager to act on — every field must be specific, evidence-backed, and commercially grounded.
 
 MOSAIC BRANDS — do NOT generate copies of existing products:
 - Man Matters (brand key: "man-matters", color: #1B4332): Men 25-45, urban India. EXISTING (do not copy): hair gummies, DHT-blocker tablets, minoxidil serum, testosterone booster tablets, whey protein, melatonin sleep gummies, multivitamin tablets.
@@ -1558,7 +2917,7 @@ ${sampleStr}
 YOUR TASK — Find genuine unmet needs rooted in the user's specified signals above. Not product ideas. Needs.
 
 Ask yourself for each concept:
-1. WHAT are consumers actually struggling with in relation to "${trend||amazon||cat}"? What workarounds are they hacking together? What complaint appears repeatedly?
+1. WHAT are consumers actually struggling with in relation to "${trend || amazon || cat}"? What workarounds are they hacking together? What complaint appears repeatedly?
 2. WHY do existing products fail them? Name the top competitors. What is their shared gap?
 3. WHERE is the evidence? Cite a specific data signal — a subreddit thread, a review pattern, a known search trend, a market size figure.
 4. IS THIS NOVEL? Would a formulation team say "this is genuinely different"? A different name or flavour is not novel. The mechanism, ingredient stack, target segment, or delivery format must be meaningfully new.
@@ -1610,275 +2969,310 @@ Return ONLY a raw JSON array. No markdown fences. No explanation. Start with [ e
     "scores": {"marketSize": 7, "competitionIntensity": 5, "brandAlignment": 8}
   }
 ]`;
-}
-
-function extractJsonArray(rawText) {
-  if (!rawText) return null;
-
-  const text = rawText
-    .replace(/```json\s*/gi, '')
-    .replace(/```\s*/gi, '')
-    .trim();
-
-  const firstBracket = text.indexOf('[');
-  if (firstBracket === -1) return null;
-
-  let depth = 0;
-  let inString = false;
-  let escaped = false;
-
-  for (let i = firstBracket; i < text.length; i++) {
-    const ch = text[i];
-
-    if (inString) {
-      if (escaped) {
-        escaped = false;
-      } else if (ch === '\\') {
-        escaped = true;
-      } else if (ch === '"') {
-        inString = false;
       }
-      continue;
-    }
 
-    if (ch === '"') {
-      inString = true;
-      continue;
-    }
+      function extractJsonArray(rawText) {
+        if (!rawText) return null;
 
-    if (ch === '[') depth++;
-    if (ch === ']') {
-      depth--;
-      if (depth === 0) {
-        return text.slice(firstBracket, i + 1);
-      }
-    }
-  }
+        const text = rawText
+          .replace(/```json\s*/gi, "")
+          .replace(/```\s*/gi, "")
+          .trim();
 
-  return null;
-}
+        const firstBracket = text.indexOf("[");
+        if (firstBracket === -1) return null;
 
-const LOADING_MSGS = [
-  'Reading consumer conversations...',
-  'Mining Amazon & Nykaa reviews...',
-  'Scanning Twitter for pain points...',
-  'Analysing Google Trends signals...',
-  'Identifying market gaps...',
-  'Generating product concepts...',
-  'Assigning Mosaic brand fit...',
-  'Finalising NPD briefs...',
-  'Almost done...',
-];
+        let depth = 0;
+        let inString = false;
+        let escaped = false;
 
-function wait(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+        for (let i = firstBracket; i < text.length; i++) {
+          const ch = text[i];
 
-async function callGeminiWithRetry(geminiHeaders, geminiBody) {
-  const targets = [
-    { url: GEMINI_URL_PRIMARY, allowFallback: true },
-    { url: GEMINI_URL_FALLBACK, allowFallback: false },
-  ];
+          if (inString) {
+            if (escaped) {
+              escaped = false;
+            } else if (ch === "\\") {
+              escaped = true;
+            } else if (ch === '"') {
+              inString = false;
+            }
+            continue;
+          }
 
-  for (const target of targets) {
-    for (let attempt = 0; attempt < 3; attempt++) {
-      const res = await fetch(target.url, { method:'POST', headers:geminiHeaders, body:geminiBody });
+          if (ch === '"') {
+            inString = true;
+            continue;
+          }
 
-      if (res.ok) return res;
-
-      if (res.status === 429) {
-        const retryAfterHeader = Number(res.headers.get('retry-after'));
-        const waitMs = Number.isFinite(retryAfterHeader) && retryAfterHeader > 0
-          ? retryAfterHeader * 1000
-          : (attempt === 0 ? 1500 : 3500);
-
-        if (attempt < 2) {
-          await wait(waitMs);
-          continue;
+          if (ch === "[") depth++;
+          if (ch === "]") {
+            depth--;
+            if (depth === 0) {
+              return text.slice(firstBracket, i + 1);
+            }
+          }
         }
 
-        throw new Error('Gemini rate limit reached (429). Please wait 1–2 minutes and try again.');
+        return null;
       }
 
-      if ((res.status === 404 || res.status === 400) && target.allowFallback) {
-        break;
+      const LOADING_MSGS = [
+        "Reading consumer conversations...",
+        "Mining Amazon & Nykaa reviews...",
+        "Scanning Twitter for pain points...",
+        "Analysing Google Trends signals...",
+        "Identifying market gaps...",
+        "Generating product concepts...",
+        "Assigning Mosaic brand fit...",
+        "Finalising NPD briefs...",
+        "Almost done...",
+      ];
+
+      function wait(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
       }
 
-      const err = await res.text();
-      throw new Error('Gemini API error: ' + err.slice(0,200));
-    }
-  }
+      async function callGeminiWithRetry(geminiHeaders, geminiBody) {
+        const targets = [
+          { url: GEMINI_URL_PRIMARY, allowFallback: true },
+          { url: GEMINI_URL_FALLBACK, allowFallback: false },
+        ];
 
-  throw new Error('Gemini model unavailable. Please try again shortly.');
-}
+        for (const target of targets) {
+          for (let attempt = 0; attempt < 3; attempt++) {
+            const res = await fetch(target.url, {
+              method: "POST",
+              headers: geminiHeaders,
+              body: geminiBody,
+            });
 
-async function startAnalysis() {
-  if (!selectedCatId) {
-    showError('Please select a product category.'); return;
-  }
-  const reddit = document.getElementById('inp-reddit').value.trim();
-  const trend  = document.getElementById('inp-trends').value.trim();
-  const amazon = document.getElementById('inp-amazon').value.trim();
-  if (!trend && !reddit && !amazon) {
-    showError('Please fill in at least one data source.'); return;
-  }
+            if (res.ok) return res;
 
-  const apiKey = GEMINI_KEY();
-  if (!apiKey) {
-    showError('Gemini API key is missing. Please enter it to continue.');
-    lockSite();
-    showEntryError('Please enter your Gemini API key to access the app.');
-    setTimeout(() => document.getElementById('entry-api-key').focus(), 30);
-    return;
-  }
+            if (res.status === 429) {
+              const retryAfterHeader = Number(res.headers.get("retry-after"));
+              const waitMs =
+                Number.isFinite(retryAfterHeader) && retryAfterHeader > 0
+                  ? retryAfterHeader * 1000
+                  : attempt === 0
+                    ? 1500
+                    : 3500;
 
-  hideError();
-  setLoading(true);
+              if (attempt < 2) {
+                await wait(waitMs);
+                continue;
+              }
 
-  try {
-    // Fetch Reddit data from all category subreddits
-    let redditPosts = [];
-    const cat = CATEGORIES.find(c=>c.id===selectedCatId);
-    redditPosts = await fetchReddit(cat.subreddits || []);
+              throw new Error(
+                "Gemini rate limit reached (429). Please wait 1–2 minutes and try again.",
+              );
+            }
 
-    const prompt = buildPrompt(cat.label, redditPosts, trend||cat.trend, amazon||cat.amazon, sampleFileText);
+            if (
+              (res.status === 404 || res.status === 400) &&
+              target.allowFallback
+            ) {
+              break;
+            }
 
-    // Call Gemini (with fallback)
-    const geminiBody = JSON.stringify({
-      tools: [{google_search:{}}],
-      contents: [{role:'user', parts:[{text:prompt}]}],
-      generationConfig: { temperature:0.8, maxOutputTokens:16384 }
-    });
-    const geminiHeaders = { 'Content-Type':'application/json', 'x-goog-api-key': apiKey };
+            const err = await res.text();
+            throw new Error("Gemini API error: " + err.slice(0, 200));
+          }
+        }
 
-    const res = await callGeminiWithRetry(geminiHeaders, geminiBody);
+        throw new Error("Gemini model unavailable. Please try again shortly.");
+      }
 
-    const data = await res.json();
-    const finishReason = data?.candidates?.[0]?.finishReason;
-    if (finishReason === 'MAX_TOKENS') {
-      throw new Error('Gemini response was truncated (MAX_TOKENS). Try again with fewer/shorter inputs.');
-    }
+      async function startAnalysis() {
+        if (!selectedCatId) {
+          showError("Please select a product category.");
+          return;
+        }
+        const reddit = document.getElementById("inp-reddit").value.trim();
+        const trend = document.getElementById("inp-trends").value.trim();
+        const amazon = document.getElementById("inp-amazon").value.trim();
+        if (!trend && !reddit && !amazon) {
+          showError("Please fill in at least one data source.");
+          return;
+        }
 
-    const parts = data?.candidates?.[0]?.content?.parts || [];
-    const raw = parts.filter(p=>p.text).map(p=>p.text).join('');
+        const apiKey = GEMINI_KEY();
+        if (!apiKey) {
+          showError("Gemini API key is missing. Please enter it to continue.");
+          lockSite();
+          showEntryError("Please enter your Gemini API key to access the app.");
+          setTimeout(
+            () => document.getElementById("entry-api-key").focus(),
+            30,
+          );
+          return;
+        }
 
-    if (!raw) throw new Error('Empty response from Gemini. Please try again.');
+        hideError();
+        setLoading(true);
 
-    // Extract JSON
-    let products;
-    const clean = extractJsonArray(raw);
-    if (!clean) throw new Error('Could not parse complete product data. Please try again.');
+        try {
+          // Fetch Reddit data from all category subreddits
+          let redditPosts = [];
+          const cat = CATEGORIES.find((c) => c.id === selectedCatId);
+          redditPosts = await fetchReddit(cat.subreddits || []);
 
-    try {
-      products = JSON.parse(clean);
-    } catch {
-      const repaired = clean
-        .replace(/[\u0000-\u001F]/g, ' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-      products = JSON.parse(repaired);
-    }
+          const prompt = buildPrompt(
+            cat.label,
+            redditPosts,
+            trend || cat.trend,
+            amazon || cat.amazon,
+            sampleFileText,
+          );
 
-    if (!Array.isArray(products)||products.length===0) throw new Error('Invalid response. Please try again.');
+          // Call Gemini (with fallback)
+          const geminiBody = JSON.stringify({
+            tools: [{ google_search: {} }],
+            contents: [{ role: "user", parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.8, maxOutputTokens: 16384 },
+          });
+          const geminiHeaders = {
+            "Content-Type": "application/json",
+            "x-goog-api-key": apiKey,
+          };
 
-    // Save
-    addEntry(selectedCatId, {
-      id: Date.now().toString(),
-      timestamp: new Date().toISOString(),
-      meta: { reddit, trend, amazon, hasFile: !!sampleFileText },
-      products,
-    });
+          const res = await callGeminiWithRetry(geminiHeaders, geminiBody);
 
-    clearInterval(loadingInterval);
-    clearInterval(progressInterval);
-    setLoading(false);
-    closeModal();
-    showToast('✓ 5 product concepts generated!');
-    showCategory(selectedCatId);
+          const data = await res.json();
+          const finishReason = data?.candidates?.[0]?.finishReason;
+          if (finishReason === "MAX_TOKENS") {
+            throw new Error(
+              "Gemini response was truncated (MAX_TOKENS). Try again with fewer/shorter inputs.",
+            );
+          }
 
-  } catch(err) {
-    clearInterval(loadingInterval);
-    clearInterval(progressInterval);
-    setLoading(false);
-    showError(err.message || 'Analysis failed. Please try again.');
-  }
-}
+          const parts = data?.candidates?.[0]?.content?.parts || [];
+          const raw = parts
+            .filter((p) => p.text)
+            .map((p) => p.text)
+            .join("");
 
-function setLoading(on) {
-  const btn = document.getElementById('submit-btn');
-  const note = document.getElementById('loading-note');
-  const wrap = document.getElementById('progress-wrap');
-  const bar  = document.getElementById('progress-bar');
-  const lbl  = document.getElementById('progress-label');
-  btn.disabled = on;
-  note.style.display = on ? 'block' : 'none';
-  wrap.style.display  = on ? 'block' : 'none';
-  if (on) {
-    btn.innerHTML = `<div class="spinner"></div> Analysing…`;
-    btn.style.display = 'none';
-    wrap.style.display = 'block';
-    // Animate progress bar over ~35s
-    let pct = 0;
-    bar.style.width = '0%';
-    lbl.textContent = LOADING_MSGS[0];
-    let msgIdx = 0;
-    progressInterval = setInterval(() => {
-      // Ease toward 92% over ~35 steps of 1s
-      pct = Math.min(pct + (92 - pct) * 0.07 + 0.4, 92);
-      bar.style.width = pct.toFixed(1) + '%';
-      msgIdx = Math.min(Math.floor(pct / 12), LOADING_MSGS.length - 1);
-      lbl.textContent = LOADING_MSGS[msgIdx];
-    }, 1000);
-  } else {
-    clearInterval(progressInterval);
-    bar.style.width = '100%';
-    setTimeout(() => {
-      wrap.style.display = 'none';
-      btn.style.display = '';
-      btn.innerHTML = 'Start Analysis → Generate 5 Product Concepts';
-    }, 400);
-  }
-}
+          if (!raw)
+            throw new Error("Empty response from Gemini. Please try again.");
 
-function showError(msg) {
-  const el = document.getElementById('modal-error');
-  el.textContent = msg;
-  el.style.display = 'block';
-}
-function hideError() {
-  document.getElementById('modal-error').style.display = 'none';
-}
+          // Extract JSON
+          let products;
+          const clean = extractJsonArray(raw);
+          if (!clean)
+            throw new Error(
+              "Could not parse complete product data. Please try again.",
+            );
 
-// ══════════════════════════════════════════════════════
-// EXPORT PDF
-// ══════════════════════════════════════════════════════
-function exportPDF() {
-  const btn = document.getElementById('export-btn');
-  btn.textContent = '⏳ Preparing…';
-  btn.disabled = true;
-  setTimeout(() => {
-    window.print();
-    btn.textContent = '⬇ Export PDF';
-    btn.disabled = false;
-  }, 150);
-}
+          try {
+            products = JSON.parse(clean);
+          } catch {
+            const repaired = clean
+              .replace(/[\u0000-\u001F]/g, " ")
+              .replace(/\s+/g, " ")
+              .trim();
+            products = JSON.parse(repaired);
+          }
 
-// ══════════════════════════════════════════════════════
-// TOAST
-// ══════════════════════════════════════════════════════
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
-}
+          if (!Array.isArray(products) || products.length === 0)
+            throw new Error("Invalid response. Please try again.");
 
-// ══════════════════════════════════════════════════════
-// INIT
-// ══════════════════════════════════════════════════════
-(function init() {
-  initEntryGate();
-})();
-</script>
-</body>
+          // Save
+          addEntry(selectedCatId, {
+            id: Date.now().toString(),
+            timestamp: new Date().toISOString(),
+            meta: { reddit, trend, amazon, hasFile: !!sampleFileText },
+            products,
+          });
+
+          clearInterval(loadingInterval);
+          clearInterval(progressInterval);
+          setLoading(false);
+          closeModal();
+          showToast("✓ 5 product concepts generated!");
+          showCategory(selectedCatId);
+        } catch (err) {
+          clearInterval(loadingInterval);
+          clearInterval(progressInterval);
+          setLoading(false);
+          showError(err.message || "Analysis failed. Please try again.");
+        }
+      }
+
+      function setLoading(on) {
+        const btn = document.getElementById("submit-btn");
+        const note = document.getElementById("loading-note");
+        const wrap = document.getElementById("progress-wrap");
+        const bar = document.getElementById("progress-bar");
+        const lbl = document.getElementById("progress-label");
+        btn.disabled = on;
+        note.style.display = on ? "block" : "none";
+        wrap.style.display = on ? "block" : "none";
+        if (on) {
+          btn.innerHTML = `<div class="spinner"></div> Analysing…`;
+          btn.style.display = "none";
+          wrap.style.display = "block";
+          // Animate progress bar over ~35s
+          let pct = 0;
+          bar.style.width = "0%";
+          lbl.textContent = LOADING_MSGS[0];
+          let msgIdx = 0;
+          progressInterval = setInterval(() => {
+            // Ease toward 92% over ~35 steps of 1s
+            pct = Math.min(pct + (92 - pct) * 0.07 + 0.4, 92);
+            bar.style.width = pct.toFixed(1) + "%";
+            msgIdx = Math.min(Math.floor(pct / 12), LOADING_MSGS.length - 1);
+            lbl.textContent = LOADING_MSGS[msgIdx];
+          }, 1000);
+        } else {
+          clearInterval(progressInterval);
+          bar.style.width = "100%";
+          setTimeout(() => {
+            wrap.style.display = "none";
+            btn.style.display = "";
+            btn.innerHTML = "Start Analysis → Generate 5 Product Concepts";
+          }, 400);
+        }
+      }
+
+      function showError(msg) {
+        const el = document.getElementById("modal-error");
+        el.textContent = msg;
+        el.style.display = "block";
+      }
+      function hideError() {
+        document.getElementById("modal-error").style.display = "none";
+      }
+
+      // ══════════════════════════════════════════════════════
+      // EXPORT PDF
+      // ══════════════════════════════════════════════════════
+      function exportPDF() {
+        const btn = document.getElementById("export-btn");
+        btn.textContent = "⏳ Preparing…";
+        btn.disabled = true;
+        setTimeout(() => {
+          window.print();
+          btn.textContent = "⬇ Export PDF";
+          btn.disabled = false;
+        }, 150);
+      }
+
+      // ══════════════════════════════════════════════════════
+      // TOAST
+      // ══════════════════════════════════════════════════════
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 3000);
+      }
+
+      // ══════════════════════════════════════════════════════
+      // INIT
+      // ══════════════════════════════════════════════════════
+      (function init() {
+        initEntryGate();
+      })();
+    </script>
+  </body>
 </html>
