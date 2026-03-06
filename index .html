@@ -80,6 +80,53 @@ h1,h2,h3,h4{font-family:'Cormorant Garamond',Georgia,serif}
 .wrap{max-width:1280px;margin:0 auto;padding:0 40px;width:100%}
 
 /* ══════════════════════════════════════════════════════
+   ENTRY GATE
+══════════════════════════════════════════════════════ */
+body.site-locked{overflow:hidden}
+.entry-gate{
+  position:fixed;inset:0;z-index:400;
+  display:none;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 20% 20%,rgba(124,58,237,.12) 0%,transparent 40%),var(--bg);
+  padding:20px;
+}
+.entry-gate.open{display:flex}
+.entry-card{
+  width:100%;max-width:520px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--r-xl);
+  box-shadow:var(--shadow-lg);
+  padding:30px 30px 26px;
+  animation:fadeUp .35s cubic-bezier(.22,1,.36,1);
+}
+.entry-logo{display:inline-flex;align-items:center;gap:11px;margin-bottom:20px}
+.entry-title{font-family:'Cormorant Garamond',serif;font-size:34px;line-height:1.1;color:var(--ink);margin-bottom:8px}
+.entry-sub{font-size:14px;color:var(--body);line-height:1.7;margin-bottom:18px}
+.entry-input{
+  display:block;
+  width:100%;
+  max-width:100%;
+  border:1.5px solid var(--border);
+  padding:16px 14px;
+  min-height:56px;
+  font-family:'DM Sans',sans-serif;font-size:15px;
+  color:var(--ink);background:var(--surface);
+  border-radius:var(--r-sm);
+  margin-bottom:12px;
+  transition:all .15s;
+  outline:none;
+}
+.entry-input::placeholder{color:var(--muted)}
+.entry-input:focus{
+  border-color:var(--violet);
+  background:var(--white);
+  box-shadow:0 0 0 2px rgba(124,58,237,.1);
+}
+.entry-error{display:none}
+.entry-actions{display:flex;gap:10px;align-items:center;margin-top:6px}
+.entry-note{font-size:12px;color:var(--muted);margin-top:10px;text-align:center}
+
+/* ══════════════════════════════════════════════════════
    HEADER
 ══════════════════════════════════════════════════════ */
 header{
@@ -246,14 +293,14 @@ footer{border-top:1px solid var(--border);padding:22px 0;margin-top:auto;backgro
 .source-dot{width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:7px;font-size:10px;font-weight:700;color:#fff}
 .source-name{font-size:13px;font-weight:600;color:var(--ink)}
 .source-hint{font-size:11px;color:var(--muted);margin-left:auto}
-input[type=text],input[type=url]{
+input[type=text],input[type=url],input[type=password]{
   width:100%;border:1.5px solid var(--border);
   padding:9px 12px;
   font-family:'DM Sans',sans-serif;font-size:13px;
   color:var(--ink);background:var(--surface);
   outline:none;transition:all .15s;border-radius:var(--r-sm);
 }
-input[type=text]:focus,input[type=url]:focus{
+input[type=text]:focus,input[type=url]:focus,input[type=password]:focus{
   border-color:var(--violet);background:var(--white);
   box-shadow:0 0 0 3px rgba(124,58,237,.1);
 }
@@ -708,6 +755,27 @@ input[type=text]:focus,input[type=url]:focus{
 </head>
 <body>
 
+<div class="entry-gate" id="entry-gate">
+  <div class="entry-card">
+    <div class="entry-logo">
+      <div class="logo-mark"><span>MS</span></div>
+      <div class="logo-text">
+        <span class="logo-name">Mosaic</span>
+        <span class="logo-ai">Signal</span>
+      </div>
+    </div>
+    <div class="entry-title">Enter Gemini API Key</div>
+    <div class="entry-sub">Add your key once to access the workspace. It stays saved on this browser for future visits.</div>
+    <label class="field-label" for="entry-api-key">Gemini API Key</label>
+    <input class="entry-input" type="password" id="entry-api-key" placeholder="AIza..." autocomplete="off"/>
+    <div id="entry-error" class="error-box entry-error"></div>
+    <div class="entry-actions">
+      <button class="submit-btn" style="margin-top:0" onclick="submitEntryKey()">Enter Site</button>
+    </div>
+    <p class="entry-note">You can update this key anytime by clearing browser storage.</p>
+  </div>
+</div>
+
 <!-- ═══════════════════════════════════════ HOME PAGE ═══════════════════════════════════════ -->
 <div id="page-home" class="page active">
   <header>
@@ -896,7 +964,18 @@ input[type=text]:focus,input[type=url]:focus{
 // ══════════════════════════════════════════════════════
 // CONFIG
 // ══════════════════════════════════════════════════════
-const GEMINI_KEY = () => 'AIzaSyBPjilhtynjJb6DyQCwj9azGJl58ZOwHDk';
+const API_KEY_STORAGE = 'gemini_api_key';
+let geminiApiKey = '';
+function GEMINI_KEY() {
+  if (geminiApiKey) return geminiApiKey;
+  const saved = localStorage.getItem(API_KEY_STORAGE) || sessionStorage.getItem(API_KEY_STORAGE) || '';
+  if (!saved) return '';
+  geminiApiKey = saved;
+  if (!localStorage.getItem(API_KEY_STORAGE)) {
+    localStorage.setItem(API_KEY_STORAGE, geminiApiKey);
+  }
+  return geminiApiKey;
+}
 const GEMINI_URL_PRIMARY  = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
 const GEMINI_URL_FALLBACK = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 const STORAGE_KEY = 'productmind_v2';
@@ -982,6 +1061,56 @@ function addEntry(catId, entry) {
 }
 function countProducts(catId) {
   return getEntries(catId).reduce((s,e) => s + (e.products?.length||0), 0);
+}
+
+function showEntryError(msg) {
+  const el = document.getElementById('entry-error');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function hideEntryError() {
+  document.getElementById('entry-error').style.display = 'none';
+}
+
+function lockSite() {
+  document.body.classList.add('site-locked');
+  document.getElementById('entry-gate').classList.add('open');
+}
+
+function unlockSite() {
+  document.body.classList.remove('site-locked');
+  document.getElementById('entry-gate').classList.remove('open');
+}
+
+function submitEntryKey() {
+  const input = document.getElementById('entry-api-key');
+  const key = input.value.trim();
+  if (!key) {
+    showEntryError('Please enter your Gemini API key.');
+    return;
+  }
+  geminiApiKey = key;
+  localStorage.setItem(API_KEY_STORAGE, key);
+  hideEntryError();
+  unlockSite();
+  renderHome();
+}
+
+function initEntryGate() {
+  const key = GEMINI_KEY();
+  if (key) {
+    unlockSite();
+    renderHome();
+    return;
+  }
+  lockSite();
+  const input = document.getElementById('entry-api-key');
+  input.value = '';
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') submitEntryKey();
+  });
+  setTimeout(() => input.focus(), 30);
 }
 
 // ══════════════════════════════════════════════════════
@@ -1540,6 +1669,15 @@ async function startAnalysis() {
     showError('Please fill in at least one data source.'); return;
   }
 
+  const apiKey = GEMINI_KEY();
+  if (!apiKey) {
+    showError('Gemini API key is missing. Please enter it to continue.');
+    lockSite();
+    showEntryError('Please enter your Gemini API key to access the app.');
+    setTimeout(() => document.getElementById('entry-api-key').focus(), 30);
+    return;
+  }
+
   hideError();
   setLoading(true);
 
@@ -1557,7 +1695,7 @@ async function startAnalysis() {
       contents: [{role:'user', parts:[{text:prompt}]}],
       generationConfig: { temperature:0.8, maxOutputTokens:16384 }
     });
-    const geminiHeaders = { 'Content-Type':'application/json', 'x-goog-api-key': GEMINI_KEY() };
+    const geminiHeaders = { 'Content-Type':'application/json', 'x-goog-api-key': apiKey };
 
     let res = await fetch(GEMINI_URL_PRIMARY, { method:'POST', headers:geminiHeaders, body:geminiBody });
     if (!res.ok && (res.status === 404 || res.status === 400)) {
@@ -1693,7 +1831,7 @@ function showToast(msg) {
 // INIT
 // ══════════════════════════════════════════════════════
 (function init() {
-  renderHome();
+  initEntryGate();
 })();
 </script>
 </body>
